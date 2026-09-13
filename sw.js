@@ -1,8 +1,9 @@
 /* عامل الخدمة: يتيح فتح التطبيق بدون إنترنت */
-const CACHE = "barq-v1";
+const CACHE = "barq-v2";
 const ASSETS = [
   "./",
   "./index.html",
+  "./sheets.js",
   "./manifest.webmanifest",
   "./assets/icon-192.png",
   "./assets/icon-512.png",

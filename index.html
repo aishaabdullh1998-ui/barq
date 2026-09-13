@@ -48,8 +48,8 @@ img{max-width:100%; display:block}
 /* ====== layout ====== */
 .wrap{width:100%; max-width:980px; margin-inline:auto; padding:14px clamp(12px,3vw,22px) 28px}
 .page{display:none}
-.page.active{display:block; animation:rise .35s ease both}
-@keyframes rise{from{opacity:0; transform:translateY(12px)}to{opacity:1; transform:none}}
+.page.active{display:block; animation:rise .35s ease}
+@keyframes rise{from{opacity:0; transform:translateY(12px)}99%{transform:translateY(0)}to{opacity:1; transform:none}}
 .center{text-align:center}
 .stack{display:flex; flex-direction:column; gap:12px; max-width:460px; margin-inline:auto}
 .row{display:flex; flex-wrap:wrap; gap:10px; justify-content:center}
@@ -204,6 +204,56 @@ textarea{line-height:1.9; resize:vertical}
 .art .acts{display:flex; gap:6px; margin-top:8px}
 .art .acts button{flex:1}
 
+/* ====== القراءة التوجيهية ====== */
+.sheet-grid{display:grid; gap:12px; grid-template-columns:repeat(auto-fill,minmax(165px,1fr))}
+.sheet-card{background:#fff; border:2px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); cursor:pointer; padding:0; font-family:inherit; text-align:start; display:block; width:100%}
+.sheet-card:hover{transform:translateY(-4px); box-shadow:var(--shadow-lg)}
+.sheet-card img{width:100%; aspect-ratio:1200/655; object-fit:cover; background:#fff}
+.sheet-card .cap{padding:10px 12px; display:flex; align-items:center; gap:8px}
+.sheet-card .num{background:var(--brand); color:#fff; font-weight:800; border-radius:10px; min-width:30px; height:30px; display:grid; place-items:center; font-size:.9rem}
+.sheet-card .ttl{font-weight:700; font-size:.98rem; flex:1}
+.sheet-card .tick{color:var(--green); font-weight:800}
+.guided{display:flex; flex-direction:column; gap:10px}
+.guided .gtop{display:flex; flex-direction:column; gap:8px}
+.guided .gside{display:flex; flex-direction:column; gap:10px; min-width:0}
+.guided.zoom{position:fixed; inset:0; z-index:55; background:linear-gradient(160deg,var(--bg1),var(--bg2)); padding:8px; overflow:auto; gap:8px}
+.guided.zoom .gtop{display:none}
+@media(orientation:landscape){
+  .guided.zoom{flex-direction:row; align-items:flex-start; overflow:hidden}
+  .guided.zoom .stage-sheet{flex:0 0 auto; margin:0}
+  .guided.zoom .gside{flex:1; min-width:250px; height:calc(100dvh - 16px); overflow-y:auto; padding-inline-end:4px}
+  .guided.zoom .cmd{padding:10px 12px; position:sticky; top:0; z-index:2}
+  .guided.zoom .toolbar{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .guided.zoom .palette{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .guided.zoom .gside .btn{min-height:48px}
+  .guided.zoom .cmd .text{font-size:clamp(17px,2.4vw,22px); line-height:1.8}
+}
+.stage-sheet{position:relative; aspect-ratio:1200/655; margin-inline:auto; background:#fff; border:3px solid var(--line);
+  border-radius:16px; overflow:hidden; box-shadow:var(--shadow-lg); user-select:none; -webkit-user-select:none; touch-action:none; width:100%}
+.stage-sheet img{position:absolute; inset:0; width:100%; height:100%; object-fit:fill; pointer-events:none}
+.stage-sheet canvas{position:absolute; inset:0; width:100%; height:100%}
+.dots{display:flex; gap:6px; justify-content:center; flex-wrap:wrap}
+.dot{width:26px; height:26px; border-radius:50%; border:2px solid var(--line); background:#fff; font-size:12px; font-weight:800;
+  display:grid; place-items:center; color:var(--muted); cursor:pointer; padding:0}
+.dot.done{background:var(--green); color:#fff; border-color:var(--green)}
+.dot.now{background:var(--brand); color:#fff; border-color:var(--brand); transform:scale(1.16)}
+.cmd{background:#fff; border:3px solid var(--brand); border-radius:var(--radius); padding:14px 16px; box-shadow:var(--shadow); text-align:center}
+.cmd .head{font-size:.92rem; font-weight:800; color:var(--brand-dark)}
+.cmd .text{font-size:clamp(19px,4.2vw,24px); font-weight:700; line-height:1.95; margin:4px 0 6px}
+.cmd .need{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; font-size:.88rem; color:var(--muted); font-weight:700}
+.cmd .need .sw-mini{width:20px; height:20px; border-radius:50%; border:2px solid var(--line); display:inline-block; vertical-align:-4px}
+.cmd.ok{border-color:var(--green); background:#f1fdf7}
+.cmd.no{border-color:#f0a5a5; background:#fff6f4}
+.toolbar{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px}
+@media(min-width:620px){ .toolbar{grid-template-columns:repeat(8,minmax(0,1fr))} }
+.tbtn{min-height:52px; border-radius:14px; border:2px solid var(--line); background:#fff; font-family:inherit; font-size:13px;
+  font-weight:700; cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; color:var(--muted); touch-action:manipulation}
+.tbtn b{font-size:19px; font-weight:400; line-height:1}
+.tbtn[aria-pressed="true"]{background:linear-gradient(135deg,#ff8f63,var(--brand)); color:#fff; border-color:var(--brand)}
+.hintbar{background:#fffbe8; border:2px dashed #ecd28a; border-radius:var(--radius-sm); padding:10px 12px; font-weight:700; text-align:center}
+.rotate-hint{display:none; font-size:.82rem}
+@media(max-width:700px) and (orientation:portrait){ .rotate-hint{display:block} }
+
 /* ====== toast + modal ====== */
 #toast{
   position:fixed; inset-block-end:calc(18px + env(safe-area-inset-bottom)); inset-inline:0; z-index:60;
@@ -239,12 +289,13 @@ footer{text-align:center; font-size:.82rem; color:var(--muted); padding:18px 14p
     <div class="hero">
       <div class="logo" aria-hidden="true">⚡</div>
       <h1 id="homeTitle">بَرق</h1>
-      <p class="muted" style="max-width:32ch">نقرأ ونلوّن ونتعلّم! سجّل قراءتك، اربح وسامك، ثم لوّن لوحتك 🎨</p>
+      <p class="muted" style="max-width:34ch">نقرأ ونُنفِّذ ونلوّن! اتّبع التعليمات على اللوحة، سجّل قراءتك، واربح وسامك 🏅</p>
       <div class="chips" aria-hidden="true">
-        <span class="chip">📖 قراءة</span><span class="chip">⏱️ تقييم</span><span class="chip">🎨 تلوين</span><span class="chip">🏅 أوسمة</span>
+        <span class="chip">📋 اتّبع التعليمات</span><span class="chip">📖 قراءة</span><span class="chip">⏱️ تقييم</span><span class="chip">🎨 تلوين</span>
       </div>
       <div class="stack" style="margin-top:18px">
         <button class="btn btn-lg btn-primary" id="startBtn">🚀 ابدأ</button>
+        <button class="btn btn-ghost" id="quickSheetBtn">📋 جرّب القراءة التوجيهية</button>
         <button class="btn btn-ghost" id="quickColorBtn">🎨 تلوين سريع بدون تسجيل</button>
       </div>
       <p class="muted" style="margin-top:12px">يعمل على الجوال واللوحي والحاسوب، وحتى بدون إنترنت.</p>
@@ -282,6 +333,7 @@ footer{text-align:center; font-size:.82rem; color:var(--muted); padding:18px 14p
     <h2 id="studentTitle" class="center"></h2>
     <p class="muted center" id="studentSummary"></p>
     <div class="grid grid-wide" style="margin-top:14px">
+      <button class="tile" id="goGuided" style="border-color:var(--brand);border-width:3px"><span class="emoji">📋</span><span class="name">القراءة التوجيهية</span><span class="sub">اتّبع التعليمات خطوة خطوة</span></button>
       <button class="tile" id="goReading"><span class="emoji">📖</span><span class="name">قراءة جديدة</span><span class="sub">سجّل الوقت والأخطاء</span></button>
       <button class="tile" id="goLibrary"><span class="emoji">📚</span><span class="name">مكتبة القراءة</span><span class="sub">التقدّم والنتائج</span></button>
       <button class="tile" id="goColoring"><span class="emoji">🎨</span><span class="name">التلوين</span><span class="sub">اختر لوحة ولوّنها</span></button>
@@ -390,6 +442,70 @@ footer{text-align:center; font-size:.82rem; color:var(--muted); padding:18px 14p
     </div>
   </section>
 
+  <!-- ======== اختيار لوحة القراءة التوجيهية ======== -->
+  <section id="sheets" class="page" aria-labelledby="sheetsTitle">
+    <h2 id="sheetsTitle" class="center">📋 اتَّبِعِ التَّعْلِيمَاتِ</h2>
+    <p class="muted center">اختر لوحة، ثم نفّذ الأوامر العشرة واحدًا تلو الآخر.</p>
+    <div class="sheet-grid" id="sheetGrid" style="margin-top:14px"></div>
+  </section>
+
+  <!-- ======== تنفيذ الأوامر ======== -->
+  <section id="guided" class="page" aria-labelledby="guidedTitle">
+    <div class="guided" id="guidedWrap">
+      <div class="gtop">
+        <h2 id="guidedTitle" class="center" style="margin:0"></h2>
+        <div class="dots" id="dots"></div>
+      </div>
+      <div class="stage-sheet" id="sheetStage">
+        <img id="sheetImg" alt="لوحة القراءة التوجيهية">
+        <canvas id="sheetCanvas"></canvas>
+      </div>
+      <div class="gside" id="guidedSide">
+      <div class="cmd" id="cmdCard">
+        <div class="head" id="cmdHead"></div>
+        <p class="text" id="cmdText"></p>
+        <div class="need" id="cmdNeed"></div>
+      </div>
+      <div class="row" style="gap:8px">
+        <button class="btn btn-green" id="checkBtn" style="flex:2;min-width:150px">✅ تحقّق</button>
+        <button class="btn btn-ghost btn-sm" id="undoStepBtn">↩️ تراجع</button>
+        <button class="btn btn-ghost btn-sm" id="zoomBtn">⛶ تكبير</button>
+      </div>
+      <p class="muted center rotate-hint" style="margin:0">💡 أدر الجهاز أفقيًا للحصول على مساحة أكبر.</p>
+      <div class="toolbar" id="toolbar">
+        <button class="tbtn" data-tool="fill"><b>🖌️</b>تلوين</button>
+        <button class="tbtn" data-tool="pen"><b>✏️</b>رسم</button>
+        <button class="tbtn" data-tool="text"><b>🔤</b>كتابة</button>
+        <button class="tbtn" data-tool="circle"><b>⭕</b>دائرة</button>
+        <button class="tbtn" data-tool="line"><b>➖</b>خط</button>
+        <button class="tbtn" data-tool="triangle"><b>🔺</b>مثلث</button>
+        <button class="tbtn" data-tool="cross"><b>✖️</b>شطب</button>
+        <button class="tbtn" data-tool="erase"><b>🧽</b>ممحاة</button>
+      </div>
+      <div class="palette" id="sheetPalette" role="group" aria-label="الألوان"></div>
+      <div class="row" style="gap:8px">
+        <button class="btn btn-ghost btn-sm" id="prevStepBtn">⬅️ الأمر السابق</button>
+        <button class="btn btn-ghost btn-sm" id="skipStepBtn">⏭️ تجاوز</button>
+        <button class="btn btn-ghost btn-sm" id="exitSheetBtn">🚪 خروج</button>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== إنهاء اللوحة ======== -->
+  <section id="sheetDone" class="page center" aria-labelledby="sheetDoneTitle">
+    <h2 id="sheetDoneTitle">🎉 أكملتَ اللوحة!</h2>
+    <div class="badge gold" id="sheetBadge">🏅 بطل التعليمات</div>
+    <p id="sheetMsg" style="font-weight:700;margin-top:10px"></p>
+    <img id="sheetResultImg" alt="لوحتك بعد تنفيذ التعليمات" style="max-width:520px;margin:14px auto;border-radius:16px;border:3px solid var(--line);box-shadow:var(--shadow)">
+    <div class="stack">
+      <button class="btn btn-green" id="sheetSaveBtn">💾 حفظ في المعرض</button>
+      <button class="btn btn-blue" id="sheetDownloadBtn">⬇️ تنزيل اللوحة</button>
+      <button class="btn btn-violet" id="sheetNextBtn">📋 لوحة أخرى</button>
+      <button class="btn btn-ghost" id="sheetBackBtn">🏠 صفحة الطالب</button>
+    </div>
+  </section>
+
   <!-- ======== المعرض ======== -->
   <section id="gallery" class="page" aria-labelledby="galleryTitle">
     <h2 id="galleryTitle" class="center">🖼️ معرض الرسومات</h2>
@@ -413,6 +529,7 @@ footer{text-align:center; font-size:.82rem; color:var(--muted); padding:18px 14p
 
 <footer>© جميع الحقوق محفوظة | إعداد وتصميم: أ. عائشة البروانية</footer>
 
+<script src="sheets.js"></script>
 <script>
 "use strict";
 /* ================= أدوات عامة ================= */
@@ -506,13 +623,14 @@ function save() {
 }
 
 /* ================= التنقّل بين الصفحات ================= */
-const PAGES = ["home", "teacher", "students", "student", "reading", "result", "library", "picker", "color", "gallery"];
-const PARENT = { teacher: "home", students: "home", student: "students", reading: "student", result: "student", library: "student", picker: "student", color: "picker", gallery: "student" };
+const PAGES = ["home", "teacher", "students", "student", "reading", "result", "library", "picker", "color", "gallery", "sheets", "guided", "sheetDone"];
+const PARENT = { teacher: "home", students: "home", student: "students", reading: "student", result: "student", library: "student", picker: "student", color: "picker", gallery: "student", sheets: "student", guided: "sheets", sheetDone: "student" };
 let currentPage = "home";
 
 function show(id) {
   if (!PAGES.includes(id)) id = "home";
   if (currentPage === "reading" && id !== "reading") stopTimer();
+  if (currentPage === "guided" && id !== "guided") setZoom(false);
   PAGES.forEach((p) => $(p).classList.toggle("active", p === id));
   currentPage = id;
   const bar = $("topbar");
@@ -1093,8 +1211,9 @@ function renderGallery() {
   $("galleryGrid").innerHTML = s.drawings.length
     ? s.drawings.slice().reverse().map((d) => {
         const t = TEMPLATES.find((x) => x.id === d.tpl);
-        return '<div class="art"><img src="' + d.img + '" alt="لوحة ' + esc(t ? t.name : "") + '" loading="lazy">' +
-          '<div class="muted" style="font-size:.8rem;text-align:center">' + (t ? t.emoji + " " + esc(t.name) : "لوحة") + "</div>" +
+        const label = d.name ? "📋 " + esc(d.name) : t ? t.emoji + " " + esc(t.name) : "لوحة";
+        return '<div class="art"><img src="' + d.img + '" alt="لوحة" loading="lazy">' +
+          '<div class="muted" style="font-size:.8rem;text-align:center">' + label + "</div>" +
           '<div class="acts"><button class="btn btn-blue btn-sm" data-dl="' + d.id + '">⬇️</button>' +
           '<button class="btn btn-danger btn-sm" data-delart="' + d.id + '">🗑️</button></div></div>';
       }).join("")
@@ -1117,15 +1236,386 @@ $("galleryGrid").addEventListener("click", async (e) => {
 });
 $("galleryNewBtn").onclick = () => { renderTemplates(); go("picker"); };
 
+
+/* ================= القراءة التوجيهية (اتّبع التعليمات) ================= */
+const SHEET_COLORS = [
+  { h: "#ff4d4d", n: "أحمر", f: ["red"] }, { h: "#ff8c2b", n: "برتقالي", f: ["orange"] },
+  { h: "#ffd93d", n: "أصفر", f: ["yellow"] }, { h: "#e8a300", n: "ذهبي", f: ["gold", "yellow"] },
+  { h: "#8ed34a", n: "أخضر فاتح", f: ["green"] }, { h: "#17a673", n: "أخضر", f: ["green"] },
+  { h: "#0b6b4f", n: "أخضر داكن", f: ["green"] }, { h: "#2fd0d0", n: "تركوازي", f: ["blue"] },
+  { h: "#7cc7ff", n: "أزرق فاتح", f: ["blue"] }, { h: "#2f74e0", n: "أزرق", f: ["blue"] },
+  { h: "#1b3f8f", n: "أزرق داكن", f: ["blue"] }, { h: "#7c4dd1", n: "بنفسجي", f: ["purple"] },
+  { h: "#b05ce0", n: "أرجواني", f: ["purple"] }, { h: "#ef5da8", n: "وردي", f: ["pink"] },
+  { h: "#ffb3c7", n: "وردي فاتح", f: ["pink"] }, { h: "#f7c59f", n: "بيج", f: ["sand"] },
+  { h: "#e8c88a", n: "رملي", f: ["sand", "gold"] }, { h: "#c98a4b", n: "بنّي فاتح", f: ["brown"] },
+  { h: "#a0522d", n: "بنّي", f: ["brown"] }, { h: "#6b3f1d", n: "بنّي داكن", f: ["brown"] },
+  { h: "#ffffff", n: "أبيض", f: ["white"] }, { h: "#dfe4ea", n: "رمادي فاتح", f: ["gray"] },
+  { h: "#9aa5b1", n: "رمادي", f: ["gray"] }, { h: "#3a3a3a", n: "أسود", f: ["black"] }
+];
+const FAM_AR = { red: "الأحمر", orange: "البرتقالي", yellow: "الأصفر", gold: "الذهبي", green: "الأخضر",
+  blue: "الأزرق", purple: "البنفسجي", pink: "الوردي", brown: "البنّي", white: "الأبيض", gray: "الرمادي", black: "الأسود", sand: "الرملي" };
+const FAM_HEX = { red: "#ff4d4d", orange: "#ff8c2b", yellow: "#ffd93d", gold: "#e8a300", green: "#17a673",
+  blue: "#2f74e0", purple: "#7c4dd1", pink: "#ef5da8", brown: "#a0522d", white: "#ffffff", gray: "#9aa5b1", black: "#3a3a3a", sand: "#e8c88a" };
+const TOOL_AR = { fill: "تلوين 🖌️", pen: "رسم ✏️", text: "كتابة 🔤", circle: "دائرة ⭕", line: "خط ➖", triangle: "مثلث 🔺", cross: "شطب ✖️", erase: "ممحاة 🧽" };
+const TOOL_KIND = { fill: "stroke", pen: "stroke", text: "text", circle: "circle", line: "line", triangle: "triangle", cross: "cross" };
+const TOOL_HINT = {
+  fill: "لوّن على اللوحة بأداة «تلوين» 🖌️", pen: "ارسم على اللوحة بأداة «رسم» ✏️",
+  text: "اختر أداة «كتابة» ثم المس المكان واكتب 🔤", circle: "اختر أداة «دائرة» وارسمها حول المطلوب ⭕",
+  line: "اختر أداة «خط» وضع خطًا تحت المطلوب ➖", triangle: "اختر أداة «مثلث» وارسمه حول المطلوب 🔺",
+  cross: "اختر أداة «شطب» وضع علامة ✖️ على المطلوب"
+};
+const TOOL_SIZE = { fill: 30, pen: 9, erase: 34, text: 46, shape: 7 };
+const REF = 1000;
+
+const sheetStage = $("sheetStage"), sheetImg = $("sheetImg"), sheetCanvas = $("sheetCanvas");
+const sctx = sheetCanvas.getContext("2d");
+let work = null;          // { sheet, step, items, tries, done }
+let sTool = "fill", sColor = "#17a673", sDrawing = null, sPending = null;
+
+const SHEETS_OK = typeof SHEETS !== "undefined" && Array.isArray(SHEETS) && SHEETS.length > 0;
+function renderSheetList() {
+  if (!SHEETS_OK) {
+    $("sheetGrid").innerHTML = '<p class="muted center" style="grid-column:1/-1">تعذّر تحميل ملف اللوحات (sheets.js). حدّث الصفحة والمحاولة مرة أخرى.</p>';
+    return;
+  }
+  const s = cur();
+  $("sheetGrid").innerHTML = SHEETS.map((sh) => {
+    const done = s && s.sheets && s.sheets[sh.n];
+    return '<button class="sheet-card" data-sheet="' + sh.n + '">' +
+      '<img src="assets/sheets/' + String(sh.n).padStart(2, "0") + '.jpg" alt="" loading="lazy">' +
+      '<span class="cap"><span class="num">' + sh.n + "</span>" +
+      '<span class="ttl">' + esc(sh.title) + "</span>" +
+      (done ? '<span class="tick">✔</span>' : "") + "</span></button>";
+  }).join("");
+}
+$("sheetGrid").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-sheet]"); if (!b) return;
+  openSheet(+b.dataset.sheet);
+});
+
+function openSheet(num) {
+  const sh = SHEETS.find((x) => x.n === num); if (!sh) return;
+  work = { sheet: sh, step: 0, items: [], tries: sh.steps.map(() => 0), done: sh.steps.map(() => false) };
+  sheetImg.src = "assets/sheets/" + String(num).padStart(2, "0") + ".jpg";
+  $("guidedTitle").textContent = sh.title;
+  setTool(sh.steps[0].tool);
+  go("guided");
+  requestAnimationFrame(() => { sizeSheetCanvas(); paintStep(); });
+}
+function paintPaletteSheet() {
+  $("sheetPalette").innerHTML = SHEET_COLORS.map((c) =>
+    '<button class="sw" data-scolor="' + c.h + '" style="background:' + c.h + '" aria-label="' + c.n + '" title="' + c.n + '" aria-pressed="' + (c.h === sColor) + '"></button>').join("");
+}
+$("sheetPalette").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-scolor]"); if (!b) return;
+  sColor = b.dataset.scolor;
+  $("sheetPalette").querySelectorAll(".sw").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.scolor === sColor)));
+  if (sTool === "erase") setTool("fill");
+  beep("tap");
+});
+function setTool(t) {
+  sTool = t;
+  $("toolbar").querySelectorAll("[data-tool]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.tool === t)));
+}
+$("toolbar").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-tool]"); if (!b) return;
+  setTool(b.dataset.tool); beep("tap");
+});
+
+function paintStep() {
+  const st = work.sheet.steps[work.step];
+  $("cmdHead").textContent = "الأمر " + (work.step + 1) + " من " + work.sheet.steps.length;
+  $("cmdText").textContent = st.t;
+  const cols = (st.colors || []).map((f) => FAM_AR[f] || f);
+  const swatch = (st.colors || []).map((f) =>
+    FAM_HEX[f] ? '<span class="sw-mini" style="background:' + FAM_HEX[f] + '"></span>' : "").join("");
+  $("cmdNeed").innerHTML = "<span>الأداة: " + TOOL_AR[st.tool] + "</span>" +
+    (cols.length ? "<span>اللون: " + esc(cols.join(" أو ")) + " " + swatch + "</span>" : "");
+  $("cmdCard").className = "cmd";
+  $("dots").innerHTML = work.sheet.steps.map((_, i) =>
+    '<button class="dot' + (work.done[i] ? " done" : "") + (i === work.step ? " now" : "") + '" data-step="' + i + '" aria-label="الأمر ' + (i + 1) + '">' +
+    (work.done[i] ? "✓" : i + 1) + "</button>").join("");
+  $("checkBtn").textContent = work.done[work.step] ? "➡️ الأمر التالي" : "✅ تحقّق";
+  setTool(st.tool);
+}
+$("dots").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-step]"); if (!b) return;
+  work.step = +b.dataset.step; paintStep();
+});
+
+/* ---- رسم العناصر ---- */
+function sizeSheetCanvas() {
+  const wrap = $("guidedWrap");
+  const zoom = wrap.classList.contains("zoom");
+  const land = window.matchMedia("(orientation:landscape)").matches;
+  const side = zoom && land ? Math.min(320, Math.max(260, wrap.clientWidth * 0.3)) : 0;
+  const avail = wrap.clientWidth - side - 12;
+  const maxH = Math.max(180, window.innerHeight * (zoom ? (land ? 0.94 : 0.62) : 0.56));
+  const w = Math.max(240, Math.min(avail, maxH * (1200 / 655), zoom ? 4000 : 900));
+  sheetStage.style.width = Math.round(w) + "px";
+  const rect = sheetStage.getBoundingClientRect();
+  const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+  sheetCanvas.width = Math.round(rect.width * dpr);
+  sheetCanvas.height = Math.round(rect.height * dpr);
+  sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  drawWork();
+}
+function stageSize() {
+  const r = sheetStage.getBoundingClientRect();
+  return [r.width, r.height];
+}
+function drawItem(g, it, W, H) {
+  const u = W / REF;
+  g.save();
+  g.lineCap = "round"; g.lineJoin = "round";
+  g.strokeStyle = it.color; g.fillStyle = it.color;
+  g.lineWidth = Math.max(1, it.size * u);
+  const p = it.pts;
+  if (it.kind === "stroke" || it.kind === "erase") {
+    if (it.kind === "erase") g.globalCompositeOperation = "destination-out";
+    if (p.length === 1) { g.beginPath(); g.arc(p[0][0] * W, p[0][1] * H, g.lineWidth / 2, 0, 7); g.fill(); }
+    else {
+      g.beginPath(); g.moveTo(p[0][0] * W, p[0][1] * H);
+      for (let i = 1; i < p.length; i++) g.lineTo(p[i][0] * W, p[i][1] * H);
+      g.stroke();
+    }
+  } else if (it.kind === "text") {
+    const fs = Math.max(11, it.size * u);
+    g.font = "700 " + fs + "px " + getComputedStyle(document.body).fontFamily;
+    g.textAlign = "center"; g.textBaseline = "middle";
+    g.lineWidth = Math.max(2, fs * 0.16); g.strokeStyle = "#ffffff";
+    g.strokeText(it.text, p[0][0] * W, p[0][1] * H);
+    g.fillText(it.text, p[0][0] * W, p[0][1] * H);
+  } else {
+    const x1 = p[0][0] * W, y1 = p[0][1] * H, x2 = p[1][0] * W, y2 = p[1][1] * H;
+    g.beginPath();
+    if (it.kind === "circle") {
+      g.ellipse((x1 + x2) / 2, (y1 + y2) / 2, Math.abs(x2 - x1) / 2, Math.abs(y2 - y1) / 2, 0, 0, 7);
+    } else if (it.kind === "line") {
+      g.moveTo(x1, y1); g.lineTo(x2, y2);
+    } else if (it.kind === "triangle") {
+      g.moveTo((x1 + x2) / 2, Math.min(y1, y2)); g.lineTo(Math.min(x1, x2), Math.max(y1, y2));
+      g.lineTo(Math.max(x1, x2), Math.max(y1, y2)); g.closePath();
+    } else if (it.kind === "cross") {
+      g.moveTo(x1, y1); g.lineTo(x2, y2); g.moveTo(x2, y1); g.lineTo(x1, y2);
+    }
+    g.stroke();
+  }
+  g.restore();
+}
+function drawWork(g, W, H) {
+  const own = !g;
+  if (own) { [W, H] = stageSize(); g = sctx; g.clearRect(0, 0, W, H); }
+  work.items.forEach((it) => drawItem(g, it, W, H));
+  if (own && sPending) drawItem(g, sPending, W, H);
+}
+
+/* ---- الإدخال ---- */
+function sPt(e) {
+  const r = sheetCanvas.getBoundingClientRect();
+  return [Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)), Math.min(1, Math.max(0, (e.clientY - r.top) / r.height))];
+}
+sheetCanvas.addEventListener("pointerdown", async (e) => {
+  if (!work) return;
+  e.preventDefault();
+  const pt = sPt(e);
+  if (sTool === "text") {
+    const st = work.sheet.steps[work.step];
+    const pre = /اسْمَكَ|اسمك/.test(st.t) && cur() ? cur().name : "";
+    const val = await promptBox("اكتب هنا ثم اضغط إضافة:", pre);
+    if (val) {
+      work.items.push({ kind: "text", color: sColor, size: TOOL_SIZE.text, pts: [pt], text: val, step: work.step });
+      drawWork(); beep("tap");
+    }
+    return;
+  }
+  try { sheetCanvas.setPointerCapture(e.pointerId); } catch (err) { /* تجاهل */ }
+  if (sTool === "fill" || sTool === "pen" || sTool === "erase") {
+    sDrawing = { kind: sTool === "erase" ? "erase" : "stroke", color: sColor, size: TOOL_SIZE[sTool], pts: [pt], step: work.step };
+    sPending = sDrawing; drawWork();
+  } else {
+    sDrawing = { kind: sTool, color: sColor, size: TOOL_SIZE.shape, pts: [pt, pt], step: work.step };
+    sPending = sDrawing;
+  }
+});
+sheetCanvas.addEventListener("pointermove", (e) => {
+  if (!sDrawing) return;
+  e.preventDefault();
+  const pt = sPt(e);
+  if (sDrawing.kind === "stroke" || sDrawing.kind === "erase") sDrawing.pts.push(pt);
+  else sDrawing.pts[1] = pt;
+  drawWork();
+});
+function endSheetStroke() {
+  if (!sDrawing) return;
+  const it = sDrawing; sDrawing = null; sPending = null;
+  if (it.kind !== "stroke" && it.kind !== "erase") {
+    const dx = Math.abs(it.pts[1][0] - it.pts[0][0]), dy = Math.abs(it.pts[1][1] - it.pts[0][1]);
+    if (dx < 0.03 && dy < 0.03) {   // نقرة واحدة: شكل بحجم افتراضي
+      const [x, y] = it.pts[0];
+      if (it.kind === "line") it.pts = [[Math.max(0, x - 0.09), y], [Math.min(1, x + 0.09), y]];
+      else it.pts = [[Math.max(0, x - 0.07), Math.max(0, y - 0.09)], [Math.min(1, x + 0.07), Math.min(1, y + 0.09)]];
+    }
+  }
+  work.items.push(it);
+  drawWork();
+}
+sheetCanvas.addEventListener("pointerup", endSheetStroke);
+sheetCanvas.addEventListener("pointercancel", endSheetStroke);
+sheetCanvas.addEventListener("pointerleave", endSheetStroke);
+
+/* ---- نافذة الكتابة ---- */
+function promptBox(label, value) {
+  return new Promise((resolve) => {
+    const m = document.createElement("div");
+    m.className = "modal";
+    m.innerHTML = '<div class="box"><p style="font-weight:700">' + esc(label) + "</p>" +
+      '<input id="__pin" value="' + esc(value || "") + '" style="text-align:center">' +
+      '<div class="row" style="margin-top:12px"><button class="btn btn-green" id="__pok">إضافة</button>' +
+      '<button class="btn btn-ghost" id="__pno">إلغاء</button></div></div>';
+    document.body.appendChild(m);
+    const input = m.querySelector("#__pin");
+    input.focus(); input.select();
+    const done = (v) => { m.remove(); resolve(v); };
+    m.querySelector("#__pok").onclick = () => done(input.value.trim());
+    m.querySelector("#__pno").onclick = () => done(null);
+    input.addEventListener("keydown", (ev) => { if (ev.key === "Enter") done(input.value.trim()); });
+    m.addEventListener("click", (ev) => { if (ev.target === m) done(null); });
+  });
+}
+
+/* ---- التحقّق والانتقال ---- */
+function checkStep() {
+  const st = work.sheet.steps[work.step];
+  const mine = work.items.filter((it) => it.step === work.step && it.kind !== "erase");
+  if (!mine.length) return { ok: false, msg: "لم تنفّذ الأمر بعد. اقرأ الأمر ثم نفّذه على اللوحة 👆" };
+  const kind = TOOL_KIND[st.tool];
+  const right = mine.filter((it) => it.kind === kind);
+  if (!right.length) return { ok: false, msg: TOOL_HINT[st.tool] };
+  if (st.colors && st.colors.length) {
+    const need = st.colors;
+    const ok = right.some((it) => {
+      const c = SHEET_COLORS.find((x) => x.h === it.color);
+      return c && c.f.some((f) => need.includes(f));
+    });
+    if (!ok) return { ok: false, msg: "اللون المطلوب هو " + need.map((f) => FAM_AR[f] || f).join(" أو ") + " — اخترْه ثم أعد المحاولة 🎨" };
+  }
+  return { ok: true };
+}
+$("checkBtn").onclick = () => {
+  if (!work) return;
+  if (work.done[work.step]) { nextStep(); return; }
+  work.tries[work.step]++;
+  const r = checkStep();
+  const card = $("cmdCard");
+  if (!r.ok) {
+    card.className = "cmd no";
+    $("cmdNeed").innerHTML = '<span style="color:#b3261e">' + esc(r.msg) + "</span>";
+    beep("oops");
+    return;
+  }
+  work.done[work.step] = true;
+  card.className = "cmd ok";
+  $("cmdNeed").innerHTML = '<span style="color:#0b6b4f;font-size:1.05rem">✅ أحسنت! تم تنفيذ الأمر بشكل صحيح</span>';
+  $("dots").children[work.step].classList.add("done");
+  $("dots").children[work.step].textContent = "✓";
+  beep("ok");
+  const at = work.step;
+  setTimeout(() => { if (work && work.step === at && work.done[at]) nextStep(); }, 1300);
+};
+function nextStep() {
+  if (work.step < work.sheet.steps.length - 1) { work.step++; paintStep(); }
+  else finishSheet();
+}
+$("prevStepBtn").onclick = () => { if (work.step > 0) { work.step--; paintStep(); } };
+$("skipStepBtn").onclick = async () => {
+  if (!(await confirmBox("تجاوز هذا الأمر دون تنفيذه؟"))) return;
+  work.done[work.step] = true; nextStep();
+};
+$("undoStepBtn").onclick = () => {
+  if (!work.items.length) { toast("لا يوجد ما يمكن التراجع عنه"); return; }
+  work.items.pop(); drawWork(); beep("tap");
+};
+function setZoom(on) {
+  const w = $("guidedWrap");
+  if (on === w.classList.contains("zoom")) return;
+  if (on) { document.body.appendChild(w); w.classList.add("zoom"); document.body.style.overflow = "hidden"; }
+  else { w.classList.remove("zoom"); $("guided").appendChild(w); document.body.style.overflow = ""; }
+  $("zoomBtn").textContent = on ? "⤡ تصغير" : "⛶ تكبير";
+  requestAnimationFrame(sizeSheetCanvas);
+}
+$("zoomBtn").onclick = () => setZoom(!$("guidedWrap").classList.contains("zoom"));
+$("exitSheetBtn").onclick = async () => {
+  if (work.items.length && !(await confirmBox("الخروج من اللوحة؟ لن تُحفظ التعديلات."))) return;
+  work = null; go(cur() ? "student" : "home");
+};
+
+/* ---- تصدير وإنهاء ---- */
+async function exportSheet(width, quality) {
+  const c = document.createElement("canvas");
+  const ar = 655 / 1200;
+  c.width = width; c.height = Math.round(width * ar);
+  const g = c.getContext("2d");
+  g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height);
+  await new Promise((res) => { if (sheetImg.complete) res(); else sheetImg.onload = res; });
+  g.drawImage(sheetImg, 0, 0, c.width, c.height);
+  drawWork(g, c.width, c.height);
+  return c.toDataURL("image/jpeg", quality);
+}
+async function finishSheet() {
+  const total = work.sheet.steps.length;
+  const first = work.tries.filter((t) => t === 1).length;
+  $("sheetMsg").textContent = "نفّذتَ " + total + " أوامر، منها " + first + " من المحاولة الأولى.";
+  const b = $("sheetBadge");
+  if (first >= 9) { b.className = "badge gold"; b.textContent = "🥇 بطل التعليمات"; }
+  else if (first >= 6) { b.className = "badge silver"; b.textContent = "🥈 قارئ ماهر"; }
+  else { b.className = "badge bronze"; b.textContent = "🥉 مجتهد"; }
+  $("sheetResultImg").src = await exportSheet(900, 0.85);
+  const s = cur();
+  if (s) {
+    s.sheets = s.sheets || {};
+    s.sheets[work.sheet.n] = { date: new Date().toISOString(), first, total };
+    save();
+  }
+  $("sheetSaveBtn").style.display = s ? "" : "none";
+  beep("win");
+  go("sheetDone");
+}
+$("sheetSaveBtn").onclick = async () => {
+  const s = cur(); if (!s || !work) return;
+  try {
+    const data = await exportSheet(760, 0.7);
+    s.drawings.push({ id: "d" + Date.now(), date: new Date().toISOString(), tpl: "sheet" + work.sheet.n, name: work.sheet.title, img: data });
+    while (s.drawings.length > 10) s.drawings.shift();
+    if (!save()) { s.drawings.pop(); return; }
+    beep("ok"); toast("تم حفظ اللوحة في المعرض 🖼️");
+  } catch (e) { toast("تعذّر الحفظ"); }
+};
+$("sheetDownloadBtn").onclick = async () => {
+  try {
+    const a = document.createElement("a");
+    a.href = await exportSheet(1400, 0.92);
+    a.download = "barq-sheet-" + work.sheet.n + ".jpg";
+    document.body.appendChild(a); a.click(); a.remove();
+    toast("تم التنزيل ⬇️");
+  } catch (e) { toast("تعذّر التنزيل"); }
+};
+$("sheetNextBtn").onclick = () => { renderSheetList(); go("sheets"); };
+$("sheetBackBtn").onclick = () => { work = null; go(cur() ? "student" : "home"); };
+$("goGuided").onclick = () => { renderSheetList(); go("sheets"); };
+$("quickSheetBtn").onclick = () => { currentIndex = -1; renderSheetList(); go("sheets"); };
+
 /* ================= التشغيل ================= */
 loadData();
 paintSoundBtn();
 paintPalette();
+paintPaletteSheet();
 setMode("fill");
 show("home");
 try { history.replaceState({ page: "home" }, ""); } catch (e) { /* تجاهل */ }
 if (window.ResizeObserver) new ResizeObserver(() => { if (currentPage === "color") sizeCanvas(); }).observe(stage);
-window.addEventListener("resize", () => { if (currentPage === "color") sizeCanvas(); });
+window.addEventListener("resize", () => { if (currentPage === "color") sizeCanvas(); if (currentPage === "guided" && work) sizeSheetCanvas(); });
+window.addEventListener("orientationchange", () => setTimeout(() => { if (currentPage === "guided" && work) sizeSheetCanvas(); }, 250));
 window.addEventListener("beforeunload", (e) => {
   if (currentPage === "reading" && (timerRunning || elapsedMs() > 0)) { e.preventDefault(); e.returnValue = ""; }
 });
