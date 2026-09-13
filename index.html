@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>⚡ بَرق | القراءة والتلوين</title>
-<meta name="description" content="بَرق: منصة تعليمية ممتعة للأطفال تجمع بين تقييم القراءة والتلوين، تعمل على الجوال والحاسوب وبدون إنترنت.">
+<title>🪶 ريشة القارئ</title>
+<meta name="description" content="ريشة القارئ: تطبيق القراءة التوجيهية للأطفال — اقرأ الأمر ونفّذه على اللوحة، يعمل على الجوال والحاسوب وبدون إنترنت.">
 <meta name="theme-color" content="#ff7a4d">
 <meta name="color-scheme" content="light">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="بَرق">
+<meta name="apple-mobile-web-app-title" content="ريشة القارئ">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="assets/icon-192.png" sizes="192x192" type="image/png">
@@ -133,71 +133,12 @@ textarea{line-height:1.9; resize:vertical}
 .student-card .del{position:absolute; inset-block-start:6px; inset-inline-end:6px; width:34px; height:34px; min-width:0; min-height:0; border-radius:50%; font-size:15px; background:#fff1f0; border:2px solid #f6c9c5; color:#b3261e; cursor:pointer; display:grid; place-items:center; padding:0}
 .avatar{width:56px; height:56px; border-radius:50%; display:grid; place-items:center; font-size:26px; background:linear-gradient(135deg,#ffe3a3,#ffd0b8)}
 
-/* ====== stats ====== */
-.stats{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:14px 0}
-.stats-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-@media(min-width:620px){ .stats{grid-template-columns:repeat(4,minmax(0,1fr))} .stats-3{grid-template-columns:repeat(3,minmax(0,1fr))} }
-.stat{background:#fff; border:2px solid var(--line); border-radius:var(--radius-sm); padding:12px 8px; text-align:center; box-shadow:var(--shadow)}
-.stat .v{font-size:clamp(22px,5.5vw,30px); font-weight:800; line-height:1.2}
-.stat .k{font-size:.82rem; color:var(--muted); font-weight:600}
-.stat.time .v{color:var(--blue)} .stat.err .v{color:var(--brand-dark)} .stat.words .v{color:var(--green)}
-
-/* ====== reading ====== */
-.timer-big{font-size:clamp(38px,12vw,64px); font-weight:800; letter-spacing:2px; font-variant-numeric:tabular-nums; color:var(--blue)}
-.tap-error{
-  width:100%; min-height:96px; border-radius:var(--radius); border:3px dashed #f3b8ab; background:#fff6f3;
-  font-family:inherit; font-size:20px; font-weight:800; color:var(--brand-dark); cursor:pointer; touch-action:manipulation;
-}
-.tap-error:active{background:#ffe9e2; transform:scale(.99)}
-
 /* ====== badge / result ====== */
 .badge{display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:999px; font-weight:800; font-size:clamp(19px,4.6vw,24px); color:#fff; box-shadow:var(--shadow-lg)}
 .badge.gold{background:linear-gradient(135deg,#ffd95e,var(--gold)); color:#4a3200}
 .badge.silver{background:linear-gradient(135deg,#dfe4ec,var(--silver)); color:#26303d}
 .badge.bronze{background:linear-gradient(135deg,#e2a16a,var(--bronze)); color:#3d2308}
-#encouragement{font-size:clamp(17px,4vw,22px); font-weight:700; color:var(--green); margin-top:8px}
 
-/* ====== chart ====== */
-.chart-box{background:#fff; border:2px solid var(--line); border-radius:var(--radius); padding:12px; box-shadow:var(--shadow); overflow-x:auto}
-.chart-box svg{display:block; width:100%; height:auto; min-width:280px}
-
-/* ====== list ====== */
-.entry{background:#fff; border:2px solid var(--line); border-radius:var(--radius-sm); padding:12px 14px; box-shadow:var(--shadow); display:flex; gap:12px; align-items:center; text-align:start; margin-bottom:10px}
-.entry .main{flex:1; min-width:0}
-.entry .title{font-weight:800}
-.entry .meta{font-size:.86rem; color:var(--muted)}
-.pill{display:inline-block; padding:2px 10px; border-radius:999px; font-size:.78rem; font-weight:700; background:#f3f4f6}
-.pill.gold{background:#fff3cd; color:#7a5500} .pill.silver{background:#eef1f6; color:#3d4756} .pill.bronze{background:#f7e6d6; color:#6d4318}
-
-/* ====== coloring studio ====== */
-.studio{display:grid; gap:14px; grid-template-columns:1fr}
-@media(min-width:900px){ .studio{grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr); align-items:start} }
-.stage{
-  position:relative; width:100%; max-width:min(88vh,560px); aspect-ratio:1/1; margin-inline:auto;
-  background:#fff; border:3px solid var(--line); border-radius:var(--radius); overflow:hidden;
-  box-shadow:var(--shadow-lg); user-select:none; -webkit-user-select:none; touch-action:none;
-}
-.layer{position:absolute; inset:0; width:100%; height:100%}
-.layer svg{width:100%; height:100%; display:block}
-.layer-fill svg *{stroke:none !important}
-.layer-fill svg .rg{cursor:pointer}
-.layer-brush{z-index:2}
-.layer-lines{z-index:3; pointer-events:none}
-.layer-lines svg *{fill:none !important}
-.tools{display:flex; flex-direction:column; gap:12px}
-.palette{display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px}
-.sw{
-  width:100%; aspect-ratio:1/1; max-height:56px; border-radius:50%; border:3px solid #fff; cursor:pointer; padding:0;
-  box-shadow:0 0 0 2px var(--line), var(--shadow); touch-action:manipulation; transition:transform .12s;
-}
-.sw:active{transform:scale(.9)}
-.sw[aria-pressed="true"]{box-shadow:0 0 0 4px var(--ink), var(--shadow); transform:scale(1.06)}
-.seg{display:flex; gap:6px; background:#fff; border:2px solid var(--line); border-radius:999px; padding:5px; box-shadow:var(--shadow)}
-.seg button{
-  flex:1; min-height:46px; border:none; background:transparent; border-radius:999px; font-family:inherit;
-  font-weight:700; font-size:15px; cursor:pointer; color:var(--muted); touch-action:manipulation;
-}
-.seg button[aria-pressed="true"]{background:linear-gradient(135deg,#ff8f63,var(--brand)); color:#fff}
 .gallery-grid{display:grid; gap:12px; grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
 .art{background:#fff; border:2px solid var(--line); border-radius:var(--radius-sm); padding:8px; box-shadow:var(--shadow)}
 .art img{border-radius:10px; width:100%; aspect-ratio:1/1; object-fit:cover; background:#fff}
@@ -278,7 +219,7 @@ footer{text-align:center; font-size:.82rem; color:var(--muted); padding:18px 14p
 <header class="topbar" id="topbar" hidden>
   <button class="icon-btn" id="backBtn" aria-label="رجوع">⬅</button>
   <button class="icon-btn" id="homeBtn" aria-label="الصفحة الرئيسية">🏠</button>
-  <span class="brand">⚡ بَرق <span class="who" id="topWho"></span></span>
+  <span class="brand">🪶 ريشة القارئ <span class="who" id="topWho"></span></span>
   <button class="icon-btn" id="soundBtn" aria-label="تشغيل أو إيقاف الأصوات" aria-pressed="true">🔊</button>
 </header>
 
@@ -287,18 +228,17 @@ footer{text-align:center; font-size:.82rem; color:var(--muted); padding:18px 14p
   <!-- ======== الصفحة الرئيسية ======== -->
   <section id="home" class="page active" aria-labelledby="homeTitle">
     <div class="hero">
-      <div class="logo" aria-hidden="true">⚡</div>
-      <h1 id="homeTitle">بَرق</h1>
-      <p class="muted" style="max-width:34ch">نقرأ ونُنفِّذ ونلوّن! اتّبع التعليمات على اللوحة، سجّل قراءتك، واربح وسامك 🏅</p>
+      <div class="logo" aria-hidden="true">🪶</div>
+      <h1 id="homeTitle">ريشة القارئ</h1>
+      <p class="muted" style="max-width:34ch">اقرأ الأمر، ونفّذه على اللوحة، وتحقّق… ثم انتقل إلى الأمر التالي 🏅</p>
       <div class="chips" aria-hidden="true">
-        <span class="chip">📋 اتّبع التعليمات</span><span class="chip">📖 قراءة</span><span class="chip">⏱️ تقييم</span><span class="chip">🎨 تلوين</span>
+        <span class="chip">📖 اقرأ</span><span class="chip">✍️ نفِّذ</span><span class="chip">✅ تحقَّق</span><span class="chip">🏅 أوسمة</span>
       </div>
       <div class="stack" style="margin-top:18px">
         <button class="btn btn-lg btn-primary" id="startBtn">🚀 ابدأ</button>
-        <button class="btn btn-ghost" id="quickSheetBtn">📋 جرّب القراءة التوجيهية</button>
-        <button class="btn btn-ghost" id="quickColorBtn">🎨 تلوين سريع بدون تسجيل</button>
+        <button class="btn btn-ghost" id="quickSheetBtn">📋 جرّب لوحة بدون تسجيل</button>
       </div>
-      <p class="muted" style="margin-top:12px">يعمل على الجوال واللوحي والحاسوب، وحتى بدون إنترنت.</p>
+      <p class="muted" style="margin-top:12px">عشرون لوحة عُمانية، ولكل لوحة عشرة أوامر. يعمل على الجوال واللوحي والحاسوب، وحتى بدون إنترنت.</p>
     </div>
   </section>
 
@@ -333,112 +273,8 @@ footer{text-align:center; font-size:.82rem; color:var(--muted); padding:18px 14p
     <h2 id="studentTitle" class="center"></h2>
     <p class="muted center" id="studentSummary"></p>
     <div class="grid grid-wide" style="margin-top:14px">
-      <button class="tile" id="goGuided" style="border-color:var(--brand);border-width:3px"><span class="emoji">📋</span><span class="name">القراءة التوجيهية</span><span class="sub">اتّبع التعليمات خطوة خطوة</span></button>
-      <button class="tile" id="goReading"><span class="emoji">📖</span><span class="name">قراءة جديدة</span><span class="sub">سجّل الوقت والأخطاء</span></button>
-      <button class="tile" id="goLibrary"><span class="emoji">📚</span><span class="name">مكتبة القراءة</span><span class="sub">التقدّم والنتائج</span></button>
-      <button class="tile" id="goColoring"><span class="emoji">🎨</span><span class="name">التلوين</span><span class="sub">اختر لوحة ولوّنها</span></button>
-      <button class="tile" id="goGallery"><span class="emoji">🖼️</span><span class="name">معرض رسوماتي</span><span class="sub">اللوحات المحفوظة</span></button>
-    </div>
-  </section>
-
-  <!-- ======== القراءة ======== -->
-  <section id="reading" class="page" aria-labelledby="readingTitle">
-    <h2 id="readingTitle" class="center"></h2>
-    <div class="card">
-      <div class="field"><label for="paragraphTitle">عنوان الفقرة</label><input id="paragraphTitle" placeholder="مثال: الأسد والفأر"></div>
-      <div class="field"><label for="paragraph">نص الفقرة</label><textarea id="paragraph" rows="5" placeholder="الصق أو اكتب الفقرة هنا... وتُحسب الكلمات تلقائيًا"></textarea></div>
-      <div class="stats stats-3">
-        <div class="stat words"><div class="v" id="wordCount">0</div><div class="k">كلمة</div></div>
-        <div class="stat err"><div class="v" id="errors">0</div><div class="k">خطأ</div></div>
-        <div class="stat time"><div class="v" id="timeMini">00:00</div><div class="k">الزمن</div></div>
-      </div>
-    </div>
-
-    <div class="card center" style="margin-top:14px">
-      <div class="timer-big" id="time" role="timer" aria-live="off">00:00</div>
-      <div class="row" style="margin:10px 0 16px">
-        <button class="btn btn-green btn-lg" id="startStopReadingBtn">▶️ بدء القراءة</button>
-        <button class="btn btn-ghost btn-sm" id="resetTimerBtn">↺ تصفير</button>
-      </div>
-      <button class="tap-error" id="registerErrorBtn">👆 اضغط عند كل خطأ<br><span style="font-size:15px;font-weight:600">الأخطاء: <span id="errorsMirror">0</span></span></button>
-      <div class="row" style="margin-top:10px">
-        <button class="btn btn-ghost btn-sm" id="undoErrorBtn">↩️ تراجع عن خطأ</button>
-      </div>
-      <button class="btn btn-primary btn-lg btn-block" id="finishEvaluationBtn" style="margin-top:18px">✅ إنهاء التقييم</button>
-    </div>
-  </section>
-
-  <!-- ======== النتيجة ======== -->
-  <section id="result" class="page center" aria-labelledby="resultTitle">
-    <h2 id="resultTitle">🎉 نتيجة القراءة</h2>
-    <div class="badge" id="badgeDisplay"></div>
-    <p id="encouragement"></p>
-    <div class="stats" style="max-width:620px;margin-inline:auto">
-      <div class="stat"><div class="v" id="speed">0</div><div class="k">كلمة/دقيقة</div></div>
-      <div class="stat"><div class="v" id="accuracy">0%</div><div class="k">الدقّة</div></div>
-      <div class="stat"><div class="v" id="resTime">00:00</div><div class="k">الزمن</div></div>
-      <div class="stat"><div class="v" id="resErrors">0</div><div class="k">الأخطاء</div></div>
-    </div>
-    <p class="muted">المستوى: <strong id="level"></strong></p>
-    <div class="stack" style="margin-top:14px">
-      <button class="btn btn-violet btn-lg" id="rewardColorBtn">🎨 مكافأة: هيّا نلوّن!</button>
-      <button class="btn btn-ghost" id="againBtn">📝 قراءة جديدة</button>
-      <button class="btn btn-ghost" id="toLibraryBtn">📚 مكتبة القراءة</button>
-      <button class="btn btn-ghost" id="toStudentsBtn">👥 قائمة الطلاب</button>
-    </div>
-  </section>
-
-  <!-- ======== المكتبة ======== -->
-  <section id="library" class="page" aria-labelledby="libraryTitle">
-    <h2 id="libraryTitle" class="center"></h2>
-    <div class="stats" id="libStats"></div>
-    <div class="chart-box" id="chartBox"></div>
-    <h3 style="margin-top:18px">📄 سجل القراءات</h3>
-    <div id="readingList"></div>
-  </section>
-
-  <!-- ======== اختيار اللوحة ======== -->
-  <section id="picker" class="page" aria-labelledby="pickerTitle">
-    <h2 id="pickerTitle" class="center">🎨 اختر لوحة لتلوينها</h2>
-    <p class="muted center">المس أي جزء لتلوينه، أو استخدم القلم للرسم الحر.</p>
-    <div class="grid" id="templateGrid" style="margin-top:14px"></div>
-  </section>
-
-  <!-- ======== استوديو التلوين ======== -->
-  <section id="color" class="page" aria-labelledby="colorTitle">
-    <h2 id="colorTitle" class="center">🎨 التلوين</h2>
-    <div class="studio">
-      <div class="stage" id="stage">
-        <div class="layer layer-fill" id="layerFill"></div>
-        <canvas class="layer layer-brush" id="brushCanvas"></canvas>
-        <div class="layer layer-lines" id="layerLines" aria-hidden="true"></div>
-      </div>
-      <div class="tools">
-        <div class="seg" role="group" aria-label="أداة التلوين">
-          <button id="modeFill" aria-pressed="true">🪣 تلوين</button>
-          <button id="modeBrush" aria-pressed="false">✏️ قلم</button>
-          <button id="modeErase" aria-pressed="false">🧽 ممحاة</button>
-        </div>
-        <div>
-          <div class="muted" style="font-weight:700;margin-bottom:6px">الألوان</div>
-          <div class="palette" id="palette" role="group" aria-label="الألوان"></div>
-        </div>
-        <div id="sizeRow">
-          <div class="muted" style="font-weight:700;margin-bottom:6px">حجم القلم</div>
-          <div class="seg" role="group" aria-label="حجم القلم">
-            <button data-size="6" aria-pressed="false">صغير</button>
-            <button data-size="14" aria-pressed="true">متوسط</button>
-            <button data-size="26" aria-pressed="false">كبير</button>
-          </div>
-        </div>
-        <div class="row" style="justify-content:stretch">
-          <button class="btn btn-ghost btn-sm" id="undoBtn" style="flex:1">↩️ تراجع</button>
-          <button class="btn btn-danger btn-sm" id="clearArtBtn" style="flex:1">🧹 مسح الكل</button>
-        </div>
-        <button class="btn btn-green btn-block" id="saveArtBtn">💾 حفظ في المعرض</button>
-        <button class="btn btn-blue btn-block" id="downloadArtBtn">⬇️ تنزيل الصورة</button>
-        <button class="btn btn-ghost btn-block" id="changeArtBtn">🔁 لوحة أخرى</button>
-      </div>
+      <button class="tile" id="goGuided" style="border-color:var(--brand);border-width:3px"><span class="emoji">📋</span><span class="name">اتَّبِعِ التَّعْلِيمَاتِ</span><span class="sub">اقرأ الأمر ونفّذه على اللوحة</span></button>
+      <button class="tile" id="goGallery"><span class="emoji">🖼️</span><span class="name">لوحاتي المحفوظة</span><span class="sub">ما أنجزته من لوحات</span></button>
     </div>
   </section>
 
@@ -508,9 +344,9 @@ footer{text-align:center; font-size:.82rem; color:var(--muted); padding:18px 14p
 
   <!-- ======== المعرض ======== -->
   <section id="gallery" class="page" aria-labelledby="galleryTitle">
-    <h2 id="galleryTitle" class="center">🖼️ معرض الرسومات</h2>
+    <h2 id="galleryTitle" class="center">🖼️ لوحاتي المحفوظة</h2>
     <div class="gallery-grid" id="galleryGrid"></div>
-    <div class="row" style="margin-top:18px"><button class="btn btn-violet" id="galleryNewBtn">🎨 لوحة جديدة</button></div>
+    <div class="row" style="margin-top:18px"><button class="btn btn-violet" id="galleryNewBtn">📋 لوحة جديدة</button></div>
   </section>
 
 </main>
@@ -611,7 +447,7 @@ function loadData() {
     id: s.id || "s" + Date.now() + i,
     name: String(s.name),
     emoji: s.emoji || ["🦊", "🐼", "🐬", "🦋", "🐝", "🦉", "🐧", "🦁", "🐢", "🐨"][i % 10],
-    evaluations: Array.isArray(s.evaluations) ? s.evaluations : [],
+    sheets: (s.sheets && typeof s.sheets === "object") ? s.sheets : {},
     drawings: Array.isArray(s.drawings) ? s.drawings : []
   }));
   save();
@@ -623,16 +459,17 @@ function save() {
 }
 
 /* ================= التنقّل بين الصفحات ================= */
-const PAGES = ["home", "teacher", "students", "student", "reading", "result", "library", "picker", "color", "gallery", "sheets", "guided", "sheetDone"];
-const PARENT = { teacher: "home", students: "home", student: "students", reading: "student", result: "student", library: "student", picker: "student", color: "picker", gallery: "student", sheets: "student", guided: "sheets", sheetDone: "student" };
+const PAGES = ["home", "teacher", "students", "student", "gallery", "sheets", "guided", "sheetDone"];
+const PARENT = { teacher: "home", students: "home", student: "students", gallery: "student", sheets: "student", guided: "sheets", sheetDone: "student" };
 let currentPage = "home";
 
 function show(id) {
   if (!PAGES.includes(id)) id = "home";
-  if (currentPage === "reading" && id !== "reading") stopTimer();
   if (currentPage === "guided" && id !== "guided") setZoom(false);
   PAGES.forEach((p) => $(p).classList.toggle("active", p === id));
   currentPage = id;
+  if (id === "students") renderStudents();
+  if (id === "student") paintStudent();
   const bar = $("topbar");
   bar.hidden = id === "home";
   $("topWho").textContent = teacher.class ? "• " + teacher.class : "";
@@ -655,7 +492,6 @@ $("startBtn").onclick = () => {
   if (teacher.name) { renderStudents(); go("students"); }
   else go("teacher");
 };
-$("quickColorBtn").onclick = () => { beep("tap"); currentIndex = -1; renderTemplates(); go("picker"); };
 $("editTeacherBtn").onclick = () => {
   $("teacherName").value = teacher.name || "";
   $("className").value = teacher.class || "";
@@ -679,7 +515,7 @@ function addStudent() {
   students.push({
     id: "s" + Date.now(), name,
     emoji: ["🦊", "🐼", "🐬", "🦋", "🐝", "🦉", "🐧", "🦁", "🐢", "🐨"][students.length % 10],
-    evaluations: [], drawings: []
+    sheets: {}, drawings: []
   });
   save(); input.value = ""; beep("ok"); renderStudents(); toast("تمت إضافة " + name + " 🎉");
 }
@@ -695,7 +531,7 @@ function renderStudents() {
       '<button class="del" data-del="' + i + '" aria-label="حذف ' + esc(s.name) + '">🗑️</button>' +
       '<span class="avatar" aria-hidden="true">' + s.emoji + "</span>" +
       '<span class="name">' + esc(s.name) + "</span>" +
-      '<span class="sub">📖 ' + s.evaluations.length + " • 🎨 " + s.drawings.length + "</span>" +
+      '<span class="sub">📋 ' + Object.keys(s.sheets || {}).length + " من " + (SHEETS_OK ? SHEETS.length : 20) + "</span>" +
     "</div>").join("");
 }
 $("studentsContainer").addEventListener("click", async (e) => {
@@ -715,491 +551,25 @@ $("studentsContainer").addEventListener("keydown", (e) => {
   const open = e.target.closest("[data-open]");
   if (open && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openStudent(+open.dataset.open); }
 });
+function paintStudent() {
+  const s = cur(); if (!s) return;
+  $("studentTitle").textContent = s.emoji + " " + s.name;
+  const done = Object.keys(s.sheets || {}).length;
+  $("studentSummary").textContent = done
+    ? "اللوحات المكتملة: " + done + " من " + (SHEETS_OK ? SHEETS.length : 20)
+    : "لنبدأ أوّل لوحة! 🚀";
+}
 function openStudent(i) {
   currentIndex = i;
-  const s = cur(); if (!s) return;
+  if (!cur()) return;
   beep("tap");
-  $("studentTitle").textContent = s.emoji + " " + s.name;
-  const best = s.evaluations.reduce((m, e2) => Math.max(m, e2.speed || 0), 0);
-  $("studentSummary").textContent = s.evaluations.length
-    ? "عدد القراءات: " + s.evaluations.length + " • أفضل سرعة: " + best + " كلمة/دقيقة"
-    : "لنبدأ أول قراءة! 🚀";
+  paintStudent();
   go("student");
 }
-$("goReading").onclick = () => startReading();
-$("goLibrary").onclick = () => { renderLibrary(); go("library"); };
-$("goColoring").onclick = () => { renderTemplates(); go("picker"); };
 $("goGallery").onclick = () => { renderGallery(); go("gallery"); };
 $("backBtn").onclick = () => { if (history.length > 1) history.back(); else show(PARENT[currentPage] || "home"); };
 $("homeBtn").onclick = () => go("home");
 $("soundBtn").onclick = () => { prefs.sound = !prefs.sound; store.write(K.prefs, prefs); paintSoundBtn(); if (prefs.sound) beep("ok"); };
-
-/* ================= القراءة والمؤقّت ================= */
-let readingWords = 0, readingErrors = 0;
-let timerId = null, timerRunning = false, timerStart = 0, timerElapsed = 0;
-
-const fmt = (ms) => {
-  const t = Math.max(0, Math.floor(ms / 1000));
-  return String(Math.floor(t / 60)).padStart(2, "0") + ":" + String(t % 60).padStart(2, "0");
-};
-const elapsedMs = () => timerElapsed + (timerRunning ? Date.now() - timerStart : 0);
-
-function paintTimer() {
-  const txt = fmt(elapsedMs());
-  $("time").textContent = txt;
-  $("timeMini").textContent = txt;
-}
-function startTimer() {
-  if (timerRunning) return;
-  timerRunning = true; timerStart = Date.now();
-  timerId = setInterval(paintTimer, 250);
-  $("startStopReadingBtn").textContent = "⏸️ إيقاف مؤقّت";
-  $("startStopReadingBtn").classList.remove("btn-green");
-  $("startStopReadingBtn").classList.add("btn-blue");
-}
-function stopTimer() {
-  if (!timerRunning) return;
-  timerElapsed += Date.now() - timerStart;
-  timerRunning = false; clearInterval(timerId); timerId = null;
-  $("startStopReadingBtn").textContent = "▶️ متابعة القراءة";
-  $("startStopReadingBtn").classList.add("btn-green");
-  $("startStopReadingBtn").classList.remove("btn-blue");
-  paintTimer();
-}
-function resetReading() {
-  stopTimer(); timerElapsed = 0; readingWords = 0; readingErrors = 0;
-  $("startStopReadingBtn").textContent = "▶️ بدء القراءة";
-  $("wordCount").textContent = "0"; $("errors").textContent = "0"; $("errorsMirror").textContent = "0";
-  paintTimer();
-}
-function startReading() {
-  const s = cur(); if (!s) { go("students"); return; }
-  $("paragraph").value = ""; $("paragraphTitle").value = "";
-  resetReading();
-  $("readingTitle").textContent = "📖 قراءة: " + s.name;
-  go("reading");
-}
-function countWords() {
-  const text = $("paragraph").value.trim();
-  readingWords = text ? text.split(/\s+/).filter((w) => /[^\sـً-ْ.,،؛:!?"'()\-]/.test(w)).length : 0;
-  $("wordCount").textContent = readingWords;
-}
-$("paragraph").addEventListener("input", countWords);
-$("startStopReadingBtn").onclick = () => { beep("tap"); timerRunning ? stopTimer() : startTimer(); };
-$("resetTimerBtn").onclick = async () => {
-  if (elapsedMs() > 0 && !(await confirmBox("تصفير الزمن والأخطاء؟"))) return;
-  resetReading(); toast("تم التصفير");
-};
-$("registerErrorBtn").onclick = () => {
-  readingErrors++; $("errors").textContent = readingErrors; $("errorsMirror").textContent = readingErrors; beep("oops");
-};
-$("undoErrorBtn").onclick = () => {
-  if (readingErrors === 0) { toast("لا توجد أخطاء مسجّلة"); return; }
-  readingErrors--; $("errors").textContent = readingErrors; $("errorsMirror").textContent = readingErrors;
-};
-
-function levelOf(speed, errors, accuracy) {
-  if (speed >= 60 && errors <= 2 && accuracy >= 95) return { level: "ممتاز", badge: "🥇 وسام ذهبي", cls: "gold", msg: "🌟 أداء رائع! أنت قارئ بَرق!" };
-  if (speed >= 30 && errors <= 5 && accuracy >= 85) return { level: "جيد", badge: "🥈 وسام فضي", cls: "silver", msg: "👏 أحسنت! تقدّم جميل، واصل!" };
-  return { level: "يحتاج تدريب", badge: "🥉 وسام نحاسي", cls: "bronze", msg: "💙 بداية موفّقة! مع التدريب ستصبح أقوى!" };
-}
-
-$("finishEvaluationBtn").onclick = () => {
-  const s = cur(); if (!s) { go("students"); return; }
-  countWords();
-  stopTimer();
-  const ms = elapsedMs();
-  if (readingWords === 0) { toast("اكتب نص الفقرة أولًا لنحسب الكلمات ✍️"); $("paragraph").focus(); return; }
-  if (ms < 3000) { toast("شغّل المؤقّت أثناء قراءة الطالب ⏱️"); return; }
-
-  const seconds = Math.max(1, Math.round(ms / 1000));
-  const speed = Math.round((readingWords / seconds) * 60);
-  const accuracy = Math.max(0, Math.round(((readingWords - readingErrors) / readingWords) * 100));
-  const r = levelOf(speed, readingErrors, accuracy);
-
-  s.evaluations.push({
-    id: "e" + Date.now(), date: new Date().toISOString(),
-    title: $("paragraphTitle").value.trim() || "قراءة بلا عنوان",
-    words: readingWords, errors: readingErrors, time: seconds,
-    speed, accuracy, level: r.level, badge: r.badge
-  });
-  save();
-
-  $("speed").textContent = speed;
-  $("accuracy").textContent = accuracy + "%";
-  $("resTime").textContent = fmt(ms);
-  $("resErrors").textContent = readingErrors;
-  $("level").textContent = r.level;
-  const b = $("badgeDisplay"); b.textContent = r.badge; b.className = "badge " + r.cls;
-  $("encouragement").textContent = r.msg;
-  beep(r.cls === "gold" ? "win" : "ok");
-  resetReading();
-  go("result");
-};
-$("againBtn").onclick = () => startReading();
-$("toLibraryBtn").onclick = () => { renderLibrary(); go("library"); };
-$("toStudentsBtn").onclick = () => { renderStudents(); go("students"); };
-$("rewardColorBtn").onclick = () => { renderTemplates(); go("picker"); };
-
-/* ================= المكتبة والرسم البياني ================= */
-function renderLibrary() {
-  const s = cur(); if (!s) { go("students"); return; }
-  $("libraryTitle").textContent = "📚 مكتبة " + s.name;
-  const evs = s.evaluations;
-  const best = evs.reduce((m, e) => Math.max(m, e.speed || 0), 0);
-  const avg = evs.length ? Math.round(evs.reduce((a, e) => a + (e.speed || 0), 0) / evs.length) : 0;
-  const avgAcc = evs.length ? Math.round(evs.reduce((a, e) => a + (e.accuracy != null ? e.accuracy : 0), 0) / evs.length) : 0;
-  $("libStats").innerHTML =
-    '<div class="stat"><div class="v">' + evs.length + '</div><div class="k">قراءة</div></div>' +
-    '<div class="stat"><div class="v">' + best + '</div><div class="k">أفضل سرعة</div></div>' +
-    '<div class="stat"><div class="v">' + avg + '</div><div class="k">متوسط السرعة</div></div>' +
-    '<div class="stat"><div class="v">' + avgAcc + '%</div><div class="k">متوسط الدقّة</div></div>';
-  $("chartBox").innerHTML = evs.length ? barChart(evs.slice(-8)) : '<p class="muted center" style="margin:14px">سيظهر رسم التقدّم بعد أول قراءة 📈</p>';
-  $("readingList").innerHTML = evs.length
-    ? evs.slice().reverse().map((e) => {
-        const cls = e.level === "ممتاز" ? "gold" : e.level === "جيد" ? "silver" : "bronze";
-        return '<div class="entry"><div class="main"><div class="title">' + esc(e.title) + " " +
-          '<span class="pill ' + cls + '">' + esc(e.level) + "</span></div>" +
-          '<div class="meta">' + new Date(e.date).toLocaleDateString("ar") + " • " +
-          e.speed + " كلمة/دقيقة • " + e.words + " كلمة • " + e.errors + " خطأ • " +
-          fmt(e.time * 1000) + (e.accuracy != null ? " • دقّة " + e.accuracy + "%" : "") + "</div></div>" +
-          '<button class="btn btn-danger btn-sm" data-delev="' + e.id + '" aria-label="حذف القراءة">🗑️</button></div>';
-      }).join("")
-    : '<p class="muted center">لا توجد قراءات بعد.</p>';
-}
-$("readingList").addEventListener("click", async (e) => {
-  const b = e.target.closest("[data-delev]"); if (!b) return;
-  const s = cur(); if (!s) return;
-  if (await confirmBox("حذف هذه القراءة من السجل؟")) {
-    s.evaluations = s.evaluations.filter((x) => x.id !== b.dataset.delev);
-    save(); renderLibrary(); toast("تم الحذف");
-  }
-});
-
-function barChart(evs) {
-  const W = 340, H = 190, pad = 34, bw = (W - pad * 2) / evs.length, barW = Math.min(46, bw * 0.64);
-  const max = Math.max(60, ...evs.map((e) => e.speed || 0));
-  let bars = "", labels = "";
-  evs.forEach((e, i) => {
-    const h = Math.max(4, ((e.speed || 0) / max) * (H - pad - 30));
-    const w = barW, x = pad + i * bw + (bw - barW) / 2, y = H - pad - h;
-    const color = e.level === "ممتاز" ? "#17a673" : e.level === "جيد" ? "#2f74e0" : "#ff7a4d";
-    bars += '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + w.toFixed(1) + '" height="' + h.toFixed(1) +
-      '" rx="6" fill="' + color + '"><title>' + esc(e.title) + ": " + (e.speed || 0) + ' كلمة/دقيقة</title></rect>' +
-      '<text x="' + (x + w / 2).toFixed(1) + '" y="' + (y - 6).toFixed(1) + '" text-anchor="middle" font-size="12" font-weight="700" fill="#1f2937">' + (e.speed || 0) + "</text>";
-    labels += '<text x="' + (x + w / 2).toFixed(1) + '" y="' + (H - pad + 16) + '" text-anchor="middle" font-size="11" fill="#5a6472">' + (i + 1) + "</text>";
-  });
-  return '<svg viewBox="0 0 ' + W + " " + H + '" style="direction:ltr" role="img" aria-label="رسم بياني لسرعة القراءة في آخر القراءات">' +
-    '<text x="' + (W - 6) + '" y="16" text-anchor="end" font-size="12" fill="#5a6472">سرعة القراءة (كلمة/دقيقة)</text>' +
-    '<line x1="' + pad + '" y1="' + (H - pad) + '" x2="' + (W - pad / 2) + '" y2="' + (H - pad) + '" stroke="#d9d2c6" stroke-width="2"/>' +
-    bars + labels + "</svg>";
-}
-
-/* ================= لوحات التلوين ================= */
-const S = 'stroke="#3a3a3a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"';
-const R = 'class="rg" fill="#ffffff" ' + S;   /* منطقة قابلة للتلوين */
-const L = 'class="ln" fill="none" ' + S;      /* خطوط فقط */
-const wrapSvg = (inner) => '<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">' + inner + "</svg>";
-
-const TEMPLATES = [
-  { id: "sun", name: "الشمس والسحاب", emoji: "🌞", svg: wrapSvg(
-    '<rect ' + R + ' x="2" y="2" width="396" height="396"/>' +
-    '<polygon ' + R + ' points="285,4 304.2,40.5 339,18.5 337.3,59.7 378.5,58 356.5,92.8 393,112 356.5,131.2 378.5,166 337.3,164.3 339,205.5 304.2,183.5 285,220 265.8,183.5 231,205.5 232.7,164.3 191.5,166 213.5,131.2 177,112 213.5,92.8 191.5,58 232.7,59.7 231,18.5 265.8,40.5"/>' +
-    '<circle ' + R + ' cx="285" cy="112" r="62"/>' +
-    '<path ' + R + ' d="M0 300 Q110 268 210 296 Q320 326 400 292 L400 398 L0 398 Z"/>' +
-    '<path ' + R + ' d="M70 205 C40 205 38 165 66 158 C62 120 112 106 130 134 C148 108 196 118 194 152 C222 156 220 205 190 205 Z"/>' +
-    '<path ' + L + ' d="M262 96 q10 10 20 0"/><path ' + L + ' d="M300 96 q10 10 20 0"/><path ' + L + ' d="M270 132 q16 16 34 0"/>') },
-
-  { id: "house", name: "بيتي الجميل", emoji: "🏠", svg: wrapSvg(
-    '<rect ' + R + ' x="2" y="2" width="396" height="396"/>' +
-    '<path ' + R + ' d="M0 318 H400 V398 H0 Z"/>' +
-    '<circle ' + R + ' cx="62" cy="64" r="34"/>' +
-    '<rect ' + R + ' x="252" y="104" width="34" height="60" rx="4"/>' +
-    '<polygon ' + R + ' points="72,190 200,92 328,190"/>' +
-    '<rect ' + R + ' x="104" y="186" width="192" height="132"/>' +
-    '<polygon ' + R + ' points="168,318 232,318 250,398 150,398"/>' +
-    '<path ' + R + ' d="M172 318 v-50 a28 28 0 0 1 56 0 v50 Z"/>' +
-    '<rect ' + R + ' x="122" y="206" width="46" height="44" rx="4"/>' +
-    '<rect ' + R + ' x="232" y="206" width="46" height="44" rx="4"/>' +
-    '<path ' + L + ' d="M145 206 v44 M122 228 h46 M255 206 v44 M232 228 h46"/>' +
-    '<circle ' + R + ' cx="218" cy="292" r="6"/>') },
-
-  { id: "fish", name: "سمكة مرحة", emoji: "🐠", svg: wrapSvg(
-    '<rect ' + R + ' x="2" y="2" width="396" height="396"/>' +
-    '<path ' + R + ' d="M300 205 C330 165 365 145 390 140 C378 180 378 232 390 270 C365 265 330 245 300 205 Z"/>' +
-    '<path ' + R + ' d="M150 142 C168 92 228 92 248 130 Z"/>' +
-    '<path ' + R + ' d="M166 266 C176 300 208 302 224 272 Z"/>' +
-    '<ellipse ' + R + ' cx="195" cy="205" rx="110" ry="72"/>' +
-    '<path ' + L + ' d="M215 150 C196 196 196 216 216 262"/>' +
-    '<path ' + L + ' d="M248 168 q18 20 0 40 M248 222 q18 20 0 40 M282 196 q16 18 0 36"/>' +
-    '<circle ' + R + ' cx="142" cy="180" r="21"/>' +
-    '<circle class="rg" fill="#3a3a3a" ' + S + ' cx="136" cy="183" r="9"/>' +
-    '<path ' + L + ' d="M112 228 q26 20 52 1"/>' +
-    '<circle ' + R + ' cx="70" cy="96" r="15"/><circle ' + R + ' cx="44" cy="60" r="10"/><circle ' + R + ' cx="88" cy="44" r="7"/>') },
-
-  { id: "butterfly", name: "فراشة ملوّنة", emoji: "🦋", svg: wrapSvg(
-    '<path ' + R + ' d="M190 178 C150 96 78 66 52 104 C26 142 74 198 186 200 Z"/>' +
-    '<path ' + R + ' d="M210 178 C250 96 322 66 348 104 C374 142 326 198 214 200 Z"/>' +
-    '<path ' + R + ' d="M188 208 C130 214 86 272 118 314 C150 356 190 296 190 236 Z"/>' +
-    '<path ' + R + ' d="M212 208 C270 214 314 272 282 314 C250 356 210 296 210 236 Z"/>' +
-    '<ellipse ' + R + ' cx="200" cy="206" rx="17" ry="100"/>' +
-    '<circle ' + R + ' cx="200" cy="104" r="21"/>' +
-    '<path ' + L + ' d="M192 90 C178 58 160 50 146 48"/><path ' + L + ' d="M208 90 C222 58 240 50 254 48"/>' +
-    '<circle ' + R + ' cx="110" cy="132" r="17"/><circle ' + R + ' cx="290" cy="132" r="17"/>' +
-    '<circle ' + R + ' cx="146" cy="272" r="13"/><circle ' + R + ' cx="254" cy="272" r="13"/>') },
-
-  { id: "flower", name: "زهرة الربيع", emoji: "🌸", svg: wrapSvg(
-    '<rect ' + R + ' x="2" y="2" width="396" height="396"/>' +
-    '<path ' + R + ' d="M0 330 H400 V398 H0 Z"/>' +
-    '<path ' + R + ' d="M192 200 C188 260 190 300 194 352 L208 352 C210 300 212 260 208 200 Z"/>' +
-    '<path ' + R + ' d="M196 288 C150 252 104 274 116 308 C128 342 180 324 196 302 Z"/>' +
-    '<path ' + R + ' d="M204 258 C250 222 296 244 284 278 C272 312 220 294 204 272 Z"/>' +
-    '<ellipse ' + R + ' cx="200" cy="104" rx="40" ry="58" transform="rotate(0 200 176)"/>' +
-    '<ellipse ' + R + ' cx="200" cy="104" rx="40" ry="58" transform="rotate(60 200 176)"/>' +
-    '<ellipse ' + R + ' cx="200" cy="104" rx="40" ry="58" transform="rotate(120 200 176)"/>' +
-    '<ellipse ' + R + ' cx="200" cy="104" rx="40" ry="58" transform="rotate(180 200 176)"/>' +
-    '<ellipse ' + R + ' cx="200" cy="104" rx="40" ry="58" transform="rotate(240 200 176)"/>' +
-    '<ellipse ' + R + ' cx="200" cy="104" rx="40" ry="58" transform="rotate(300 200 176)"/>' +
-    '<circle ' + R + ' cx="200" cy="176" r="44"/>') },
-
-  { id: "rocket", name: "صاروخ الفضاء", emoji: "🚀", svg: wrapSvg(
-    '<rect ' + R + ' x="2" y="2" width="396" height="396"/>' +
-    '<polygon ' + R + ' points="60,48 65.3,62.7 80.9,63.2 68.6,72.8 72.9,87.8 60,79 47.1,87.8 51.4,72.8 39.1,63.2 54.7,62.7"/>' +
-    '<polygon ' + R + ' points="330,44 333.8,54.7 345.2,55.1 336.2,62 339.4,72.9 330,66.5 320.6,72.9 323.8,62 314.8,55.1 326.2,54.7"/>' +
-    '<polygon ' + R + ' points="70,236 73.2,245.6 83.3,245.7 75.2,251.7 78.2,261.3 70,255.5 61.8,261.3 64.8,251.7 56.7,245.7 66.8,245.6"/>' +
-    '<polygon ' + R + ' points="340,191 344.4,203.9 358.1,204.1 347.1,212.3 351.2,225.4 340,217.5 328.8,225.4 332.9,212.3 321.9,204.1 335.6,203.9"/>' +
-    '<path ' + R + ' d="M168 298 C180 348 190 372 200 394 C210 372 220 348 232 298 Z"/>' +
-    '<path ' + R + ' d="M150 216 C116 248 104 286 106 318 L150 300 Z"/>' +
-    '<path ' + R + ' d="M250 216 C284 248 296 286 294 318 L250 300 Z"/>' +
-    '<path ' + R + ' d="M200 40 C242 96 258 190 250 300 L150 300 C142 190 158 96 200 40 Z"/>' +
-    '<rect ' + R + ' x="152" y="250" width="96" height="26" rx="8"/>' +
-    '<circle ' + R + ' cx="200" cy="142" r="40"/><circle ' + R + ' cx="200" cy="142" r="24"/>') },
-
-  { id: "cat", name: "القطة الصغيرة", emoji: "🐱", svg: wrapSvg(
-    '<path ' + R + ' d="M290 352 C356 346 362 262 316 252 C300 249 296 262 306 268 C338 276 330 322 286 328 Z"/>' +
-    '<path ' + R + ' d="M118 396 C110 306 148 258 200 258 C252 258 290 306 282 396 Z"/>' +
-    '<polygon ' + R + ' points="132,128 118,44 192,86"/><polygon ' + R + ' points="268,128 282,44 208,86"/>' +
-    '<circle ' + R + ' cx="200" cy="176" r="92"/>' +
-    '<polygon ' + R + ' points="142,118 132,70 176,96"/><polygon ' + R + ' points="258,118 268,70 224,96"/>' +
-    '<ellipse ' + R + ' cx="168" cy="168" rx="17" ry="21"/><ellipse ' + R + ' cx="232" cy="168" rx="17" ry="21"/>' +
-    '<circle class="rg" fill="#3a3a3a" ' + S + ' cx="168" cy="170" r="8"/><circle class="rg" fill="#3a3a3a" ' + S + ' cx="232" cy="170" r="8"/>' +
-    '<polygon ' + R + ' points="188,204 212,204 200,218"/>' +
-    '<path ' + L + ' d="M200 218 C200 232 186 240 176 230 M200 218 C200 232 214 240 224 230"/>' +
-    '<path ' + L + ' d="M116 192 L58 180 M116 210 L56 212 M284 192 L342 180 M284 210 L344 212"/>' +
-    '<ellipse ' + R + ' cx="160" cy="378" rx="30" ry="18"/><ellipse ' + R + ' cx="240" cy="378" rx="30" ry="18"/>') },
-
-  { id: "balloon", name: "منطاد الهواء", emoji: "🎈", svg: wrapSvg(
-    '<rect ' + R + ' x="2" y="2" width="396" height="396"/>' +
-    '<path ' + R + ' d="M200 36 C138 44 100 140 116 226 L176 226 C164 150 174 86 200 36 Z"/>' +
-    '<path ' + R + ' d="M200 36 C174 86 164 150 176 226 L224 226 C236 150 226 86 200 36 Z"/>' +
-    '<path ' + R + ' d="M200 36 C262 44 300 140 284 226 L224 226 C236 150 226 86 200 36 Z"/>' +
-    '<path ' + L + ' d="M132 232 L172 300 M268 232 L228 300 M200 230 L200 300"/>' +
-    '<path ' + R + ' d="M166 298 L234 298 L226 352 L174 352 Z"/>' +
-    '<path ' + L + ' d="M166 316 H234"/>' +
-    '<path ' + L + ' d="M50 120 q14 -16 28 0 q14 -16 28 0"/><path ' + L + ' d="M300 320 q14 -16 28 0 q14 -16 28 0"/>') },
-
-  { id: "blank", name: "ارسم بحرّية", emoji: "✏️", svg: wrapSvg(
-    '<rect ' + R + ' x="2" y="2" width="396" height="396" rx="14"/>') }
-];
-
-const COLORS = ["#ff4d4d", "#ff8c2b", "#ffd93d", "#8ed34a", "#17a673", "#2fd0d0",
-  "#49b6ff", "#2f74e0", "#5b4dd1", "#b05ce0", "#ef5da8", "#ffb3c7",
-  "#f7c59f", "#a0522d", "#7a4a1e", "#ffffff", "#b8c2cc", "#3a3a3a"];
-
-/* ================= استوديو التلوين ================= */
-const stage = $("stage"), layerFill = $("layerFill"), layerLines = $("layerLines"), canvas = $("brushCanvas");
-const ctx = canvas.getContext("2d");
-let art = { tpl: null, strokes: [], history: [] };
-let mode = "fill", color = COLORS[0], brushSize = 14, drawing = null;
-
-function renderTemplates() {
-  $("templateGrid").innerHTML = TEMPLATES.map((t) =>
-    '<button class="tile" data-tpl="' + t.id + '">' +
-      '<span style="width:92px;height:92px;display:block">' + t.svg + "</span>" +
-      '<span class="name">' + t.emoji + " " + t.name + "</span></button>").join("");
-}
-$("templateGrid").addEventListener("click", (e) => {
-  const b = e.target.closest("[data-tpl]"); if (!b) return;
-  openStudio(b.dataset.tpl);
-});
-
-function openStudio(tplId) {
-  const tpl = TEMPLATES.find((t) => t.id === tplId) || TEMPLATES[0];
-  art = { tpl: tpl.id, strokes: [], history: [] };
-  layerFill.innerHTML = tpl.svg;
-  layerLines.innerHTML = tpl.svg;
-  layerFill.querySelectorAll(".rg").forEach((n, i) => {
-    n.dataset.i = i;
-    n.dataset.orig = n.getAttribute("fill") || "#ffffff";
-  });
-  $("colorTitle").textContent = tpl.emoji + " " + tpl.name;
-  $("saveArtBtn").style.display = cur() ? "" : "none";   /* الحفظ في المعرض يحتاج طالبًا مسجّلًا */
-  beep("tap");
-  go("color");
-  requestAnimationFrame(sizeCanvas);
-}
-function paintPalette() {
-  $("palette").innerHTML = COLORS.map((c) =>
-    '<button class="sw" data-color="' + c + '" style="background:' + c + '" aria-label="اللون ' + c + '" aria-pressed="' + (c === color) + '"></button>').join("");
-}
-$("palette").addEventListener("click", (e) => {
-  const b = e.target.closest("[data-color]"); if (!b) return;
-  color = b.dataset.color;
-  $("palette").querySelectorAll(".sw").forEach((s) => s.setAttribute("aria-pressed", String(s.dataset.color === color)));
-  if (mode === "erase") setMode("fill");
-  beep("tap");
-});
-function setMode(m) {
-  mode = m;
-  $("modeFill").setAttribute("aria-pressed", String(m === "fill"));
-  $("modeBrush").setAttribute("aria-pressed", String(m === "brush"));
-  $("modeErase").setAttribute("aria-pressed", String(m === "erase"));
-  canvas.style.pointerEvents = m === "fill" ? "none" : "auto";
-  canvas.style.cursor = m === "fill" ? "default" : "crosshair";
-  $("sizeRow").style.display = m === "fill" ? "none" : "";
-}
-$("modeFill").onclick = () => { setMode("fill"); beep("tap"); };
-$("modeBrush").onclick = () => { setMode("brush"); beep("tap"); };
-$("modeErase").onclick = () => { setMode("erase"); beep("tap"); };
-el("#sizeRow .seg").addEventListener("click", (e) => {
-  const b = e.target.closest("[data-size]"); if (!b) return;
-  brushSize = +b.dataset.size;
-  el("#sizeRow .seg").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-});
-
-/* --- التلوين بالنقر --- */
-layerFill.addEventListener("click", (e) => {
-  const shape = e.target.closest(".rg"); if (!shape) return;
-  const prev = shape.getAttribute("fill");
-  if (prev === color) return;
-  shape.setAttribute("fill", color);
-  art.history.push({ kind: "fill", i: shape.dataset.i, prev });
-  if (art.history.length > 60) art.history.shift();
-  beep("tap");
-});
-
-/* --- الرسم بالقلم --- */
-function sizeCanvas() {
-  const rect = stage.getBoundingClientRect();
-  if (!rect.width) return;
-  const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
-  canvas.width = Math.round(rect.width * dpr);
-  canvas.height = Math.round(rect.height * dpr);
-  canvas.style.width = rect.width + "px";
-  canvas.style.height = rect.height + "px";
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  redraw();
-}
-function drawStroke(s) {
-  const W = parseFloat(canvas.style.width) || canvas.width, H = parseFloat(canvas.style.height) || canvas.height;
-  ctx.save();
-  ctx.globalCompositeOperation = s.erase ? "destination-out" : "source-over";
-  ctx.strokeStyle = s.color; ctx.fillStyle = s.color;
-  ctx.lineWidth = s.size; ctx.lineCap = "round"; ctx.lineJoin = "round";
-  const pts = s.pts;
-  if (pts.length === 1) {
-    ctx.beginPath(); ctx.arc(pts[0][0] * W, pts[0][1] * H, s.size / 2, 0, Math.PI * 2); ctx.fill();
-  } else {
-    ctx.beginPath(); ctx.moveTo(pts[0][0] * W, pts[0][1] * H);
-    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0] * W, pts[i][1] * H);
-    ctx.stroke();
-  }
-  ctx.restore();
-}
-function redraw() {
-  const W = parseFloat(canvas.style.width) || canvas.width, H = parseFloat(canvas.style.height) || canvas.height;
-  ctx.clearRect(0, 0, W, H);
-  art.strokes.forEach(drawStroke);
-}
-function ptOf(e) {
-  const r = canvas.getBoundingClientRect();
-  return [Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)), Math.min(1, Math.max(0, (e.clientY - r.top) / r.height))];
-}
-canvas.addEventListener("pointerdown", (e) => {
-  if (mode === "fill") return;
-  e.preventDefault();
-  try { canvas.setPointerCapture(e.pointerId); } catch (err) { /* تجاهل */ }
-  drawing = { color, size: brushSize, erase: mode === "erase", pts: [ptOf(e)] };
-  drawStroke(drawing);
-});
-canvas.addEventListener("pointermove", (e) => {
-  if (!drawing) return;
-  e.preventDefault();
-  drawing.pts.push(ptOf(e));
-  if (drawing.pts.length > 2) drawStroke({ ...drawing, pts: drawing.pts.slice(-2) });
-});
-function endStroke() {
-  if (!drawing) return;
-  art.strokes.push(drawing);
-  art.history.push({ kind: "stroke" });
-  if (art.history.length > 60) art.history.shift();
-  drawing = null;
-}
-canvas.addEventListener("pointerup", endStroke);
-canvas.addEventListener("pointercancel", endStroke);
-canvas.addEventListener("pointerleave", endStroke);
-
-$("undoBtn").onclick = () => {
-  const last = art.history.pop();
-  if (!last) { toast("لا يوجد ما يمكن التراجع عنه"); return; }
-  if (last.kind === "fill") {
-    const shape = layerFill.querySelector('.rg[data-i="' + last.i + '"]');
-    if (shape) shape.setAttribute("fill", last.prev);
-  } else { art.strokes.pop(); redraw(); }
-  beep("tap");
-};
-$("clearArtBtn").onclick = async () => {
-  if (!(await confirmBox("مسح كل الألوان من اللوحة؟"))) return;
-  layerFill.querySelectorAll(".rg").forEach((n) => n.setAttribute("fill", n.dataset.orig));
-  art.strokes = []; art.history = []; redraw(); toast("لوحة جديدة نظيفة ✨");
-};
-$("changeArtBtn").onclick = () => { renderTemplates(); go("picker"); };
-
-/* --- تصدير الصورة --- */
-function svgToImage(host, kind, size) {
-  return new Promise((resolve, reject) => {
-    const svg = host.querySelector("svg").cloneNode(true);
-    svg.setAttribute("width", size); svg.setAttribute("height", size);
-    svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-    svg.querySelectorAll("*").forEach((n) => {
-      if (kind === "fill") n.setAttribute("stroke", "none");
-      else n.setAttribute("fill", "none");
-    });
-    const src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(svg));
-    const img = new Image();
-    img.onload = () => resolve(img);
-    img.onerror = reject;
-    img.src = src;
-  });
-}
-async function exportImage(size, mime, quality) {
-  const c = document.createElement("canvas");
-  c.width = c.height = size;
-  const g = c.getContext("2d");
-  g.fillStyle = "#ffffff"; g.fillRect(0, 0, size, size);
-  g.drawImage(await svgToImage(layerFill, "fill", size), 0, 0, size, size);
-  if (canvas.width) g.drawImage(canvas, 0, 0, size, size);
-  g.drawImage(await svgToImage(layerLines, "lines", size), 0, 0, size, size);
-  return c.toDataURL(mime, quality);
-}
-$("saveArtBtn").onclick = async () => {
-  const s = cur();
-  if (!s) { toast("سجّل الطالب أولًا لحفظ اللوحة في معرضه 🙂"); return; }
-  try {
-    const data = await exportImage(620, "image/jpeg", 0.82);
-    s.drawings.push({ id: "d" + Date.now(), date: new Date().toISOString(), tpl: art.tpl, img: data });
-    while (s.drawings.length > 12) s.drawings.shift();
-    if (!save()) { s.drawings.pop(); return; }
-    beep("win"); toast("تم حفظ اللوحة في معرضك 🖼️");
-  } catch (err) { toast("تعذّر حفظ اللوحة"); }
-};
-$("downloadArtBtn").onclick = async () => {
-  try {
-    const data = await exportImage(1000, "image/png");
-    beep("ok");
-    await saveFile("barq-" + (art.tpl || "art") + ".png", data);
-  } catch (err) { toast("تعذّر تنزيل الصورة"); }
-};
 
 /* ================= تنزيل الملفات ================= */
 let dlNs;   // قدرة التنزيل في بيئة المعاينة (غير متوفّرة في الموقع المستضاف)
@@ -1229,17 +599,16 @@ async function saveFile(filename, dataUrl) {
 /* ================= المعرض ================= */
 function renderGallery() {
   const s = cur(); if (!s) { go("students"); return; }
-  $("galleryTitle").textContent = "🖼️ معرض " + s.name;
+  $("galleryTitle").textContent = "🖼️ لوحات " + s.name;
   $("galleryGrid").innerHTML = s.drawings.length
     ? s.drawings.slice().reverse().map((d) => {
-        const t = TEMPLATES.find((x) => x.id === d.tpl);
-        const label = d.name ? "📋 " + esc(d.name) : t ? t.emoji + " " + esc(t.name) : "لوحة";
+        const label = d.name ? "📋 " + esc(d.name) : "لوحة";
         return '<div class="art"><img src="' + d.img + '" alt="لوحة" loading="lazy">' +
           '<div class="muted" style="font-size:.8rem;text-align:center">' + label + "</div>" +
           '<div class="acts"><button class="btn btn-blue btn-sm" data-dl="' + d.id + '">⬇️</button>' +
           '<button class="btn btn-danger btn-sm" data-delart="' + d.id + '">🗑️</button></div></div>';
       }).join("")
-    : '<p class="muted center" style="grid-column:1/-1">لا توجد لوحات محفوظة بعد 🎨</p>';
+    : '<p class="muted center" style="grid-column:1/-1">لا توجد لوحات محفوظة بعد 📋</p>';
 }
 $("galleryGrid").addEventListener("click", async (e) => {
   const s = cur(); if (!s) return;
@@ -1255,7 +624,7 @@ $("galleryGrid").addEventListener("click", async (e) => {
     save(); renderGallery(); toast("تم الحذف");
   }
 });
-$("galleryNewBtn").onclick = () => { renderTemplates(); go("picker"); };
+$("galleryNewBtn").onclick = () => { renderSheetList(); go("sheets"); };
 
 
 /* ================= القراءة التوجيهية (اتّبع التعليمات) ================= */
@@ -1625,16 +994,13 @@ $("quickSheetBtn").onclick = () => { currentIndex = -1; renderSheetList(); go("s
 /* ================= التشغيل ================= */
 loadData();
 paintSoundBtn();
-paintPalette();
 paintPaletteSheet();
-setMode("fill");
 show("home");
 try { history.replaceState({ page: "home" }, ""); } catch (e) { /* تجاهل */ }
-if (window.ResizeObserver) new ResizeObserver(() => { if (currentPage === "color") sizeCanvas(); }).observe(stage);
-window.addEventListener("resize", () => { if (currentPage === "color") sizeCanvas(); if (currentPage === "guided" && work) sizeSheetCanvas(); });
+window.addEventListener("resize", () => { if (currentPage === "guided" && work) sizeSheetCanvas(); });
 window.addEventListener("orientationchange", () => setTimeout(() => { if (currentPage === "guided" && work) sizeSheetCanvas(); }, 250));
 window.addEventListener("beforeunload", (e) => {
-  if (currentPage === "reading" && (timerRunning || elapsedMs() > 0)) { e.preventDefault(); e.returnValue = ""; }
+  if (currentPage === "guided" && work && work.items.length) { e.preventDefault(); e.returnValue = ""; }
 });
 if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
   window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));

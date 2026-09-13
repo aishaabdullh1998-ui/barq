@@ -1,5 +1,5 @@
 /* عامل الخدمة: يتيح فتح التطبيق بدون إنترنت */
-const CACHE = "barq-v2";
+const CACHE = "barq-v3";
 const ASSETS = [
   "./",
   "./index.html",

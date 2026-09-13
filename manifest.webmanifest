@@ -1,7 +1,7 @@
 {
-  "name": "بَرق | القراءة والتلوين",
-  "short_name": "بَرق",
-  "description": "منصة تعليمية للأطفال: تقييم القراءة وتلوين اللوحات، تعمل على أي جهاز وبدون إنترنت.",
+  "name": "ريشة القارئ | القراءة التوجيهية",
+  "short_name": "ريشة القارئ",
+  "description": "تطبيق القراءة التوجيهية للأطفال: اقرأ الأمر ونفّذه على اللوحة، ثم تحقّق وانتقل إلى الأمر التالي.",
   "lang": "ar",
   "dir": "rtl",
   "start_url": ".",
@@ -11,8 +11,23 @@
   "background_color": "#fff6e9",
   "theme_color": "#ff7a4d",
   "icons": [
-    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
