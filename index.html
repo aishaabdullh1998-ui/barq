@@ -165,14 +165,22 @@ textarea{line-height:1.9; resize:vertical}
   .guided.zoom .gside{flex:1; min-width:250px; height:calc(100dvh - 16px); overflow-y:auto; padding-inline-end:4px}
   .guided.zoom .cmd{padding:10px 12px; position:sticky; top:0; z-index:2}
   .guided.zoom .toolbar{grid-template-columns:repeat(4,minmax(0,1fr))}
-  .guided.zoom .palette{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .guided.zoom .palette{grid-template-columns:repeat(2,clamp(38px,3.6vw,54px))}
   .guided.zoom .gside .btn{min-height:48px}
   .guided.zoom .cmd .text{font-size:clamp(17px,2.4vw,22px); line-height:1.8}
 }
 .stage-sheet{position:relative; aspect-ratio:1200/655; margin-inline:auto; background:#fff; border:3px solid var(--line);
   border-radius:16px; overflow:hidden; box-shadow:var(--shadow-lg); user-select:none; -webkit-user-select:none; touch-action:none; width:100%}
-.stage-sheet img{position:absolute; inset:0; width:100%; height:100%; object-fit:fill; pointer-events:none}
-.stage-sheet canvas{position:absolute; inset:0; width:100%; height:100%}
+.stage-sheet img,.stage-sheet canvas{position:absolute; inset:0; width:100%; height:100%; object-fit:fill}
+.stage-sheet img,#paintCanvas,#lineCanvas{pointer-events:none}
+.work{display:flex; align-items:flex-start; justify-content:center; gap:8px}
+.work .stage-sheet{flex:0 0 auto; margin:0}
+.palette{flex:0 0 auto; display:grid; grid-template-columns:repeat(2,clamp(26px,7.5vw,46px)); gap:6px; align-content:start;
+  padding:6px; background:#fff; border:2px solid var(--line); border-radius:16px; box-shadow:var(--shadow)}
+.sw{width:100%; aspect-ratio:1/1; border-radius:50%; border:3px solid #fff; cursor:pointer; padding:0;
+  box-shadow:0 0 0 2px var(--line); touch-action:manipulation; transition:transform .12s}
+.sw:active{transform:scale(.9)}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 4px var(--ink); transform:scale(1.08)}
 .dots{display:flex; gap:6px; justify-content:center; flex-wrap:wrap}
 .dot{width:26px; height:26px; border-radius:50%; border:2px solid var(--line); background:#fff; font-size:12px; font-weight:800;
   display:grid; place-items:center; color:var(--muted); cursor:pointer; padding:0}
@@ -292,10 +300,15 @@ footer{text-align:center; font-size:.82rem; color:var(--muted); padding:18px 14p
         <h2 id="guidedTitle" class="center" style="margin:0"></h2>
         <div class="dots" id="dots"></div>
       </div>
-      <div class="stage-sheet" id="sheetStage">
-        <img id="sheetImg" alt="لوحة القراءة التوجيهية">
-        <canvas id="sheetCanvas"></canvas>
-      </div>
+      <div class="work">
+        <div class="stage-sheet" id="sheetStage">
+          <img id="sheetImg" alt="لوحة القراءة التوجيهية">
+          <canvas id="paintCanvas" aria-hidden="true"></canvas>
+          <canvas id="lineCanvas" aria-hidden="true"></canvas>
+          <canvas id="sheetCanvas"></canvas>
+        </div>
+        <div class="palette" id="sheetPalette" role="group" aria-label="الألوان"></div>
+        </div>
       <div class="gside" id="guidedSide">
       <div class="cmd" id="cmdCard">
         <div class="head" id="cmdHead"></div>
@@ -309,7 +322,7 @@ footer{text-align:center; font-size:.82rem; color:var(--muted); padding:18px 14p
       </div>
       <p class="muted center rotate-hint" style="margin:0">💡 أدر الجهاز أفقيًا للحصول على مساحة أكبر.</p>
       <div class="toolbar" id="toolbar">
-        <button class="tbtn" data-tool="fill"><b>🖌️</b>تلوين</button>
+        <button class="tbtn" data-tool="fill"><b>🪣</b>تعبئة</button>
         <button class="tbtn" data-tool="pen"><b>✏️</b>رسم</button>
         <button class="tbtn" data-tool="text"><b>🔤</b>كتابة</button>
         <button class="tbtn" data-tool="circle"><b>⭕</b>دائرة</button>
@@ -318,7 +331,6 @@ footer{text-align:center; font-size:.82rem; color:var(--muted); padding:18px 14p
         <button class="tbtn" data-tool="cross"><b>✖️</b>شطب</button>
         <button class="tbtn" data-tool="erase"><b>🧽</b>ممحاة</button>
       </div>
-      <div class="palette" id="sheetPalette" role="group" aria-label="الألوان"></div>
       <div class="row" style="gap:8px">
         <button class="btn btn-ghost btn-sm" id="prevStepBtn">⬅️ الأمر السابق</button>
         <button class="btn btn-ghost btn-sm" id="skipStepBtn">⏭️ تجاوز</button>
@@ -333,7 +345,7 @@ footer{text-align:center; font-size:.82rem; color:var(--muted); padding:18px 14p
     <h2 id="sheetDoneTitle">🎉 أكملتَ اللوحة!</h2>
     <div class="badge gold" id="sheetBadge">🏅 بطل التعليمات</div>
     <p id="sheetMsg" style="font-weight:700;margin-top:10px"></p>
-    <img id="sheetResultImg" alt="لوحتك بعد تنفيذ التعليمات" style="max-width:520px;margin:14px auto;border-radius:16px;border:3px solid var(--line);box-shadow:var(--shadow)">
+    <img id="sheetResultImg" alt="لوحتك بعد تنفيذ التعليمات" style="width:100%;max-width:520px;margin:14px auto;border-radius:16px;border:3px solid var(--line);box-shadow:var(--shadow)">
     <div class="stack">
       <button class="btn btn-green" id="sheetSaveBtn">💾 حفظ في المعرض</button>
       <button class="btn btn-blue" id="sheetDownloadBtn">⬇️ تنزيل اللوحة</button>
@@ -632,24 +644,19 @@ const SHEET_COLORS = [
   { h: "#ff4d4d", n: "أحمر", f: ["red"] }, { h: "#ff8c2b", n: "برتقالي", f: ["orange"] },
   { h: "#ffd93d", n: "أصفر", f: ["yellow"] }, { h: "#e8a300", n: "ذهبي", f: ["gold", "yellow"] },
   { h: "#8ed34a", n: "أخضر فاتح", f: ["green"] }, { h: "#17a673", n: "أخضر", f: ["green"] },
-  { h: "#0b6b4f", n: "أخضر داكن", f: ["green"] }, { h: "#2fd0d0", n: "تركوازي", f: ["blue"] },
   { h: "#7cc7ff", n: "أزرق فاتح", f: ["blue"] }, { h: "#2f74e0", n: "أزرق", f: ["blue"] },
-  { h: "#1b3f8f", n: "أزرق داكن", f: ["blue"] }, { h: "#7c4dd1", n: "بنفسجي", f: ["purple"] },
-  { h: "#b05ce0", n: "أرجواني", f: ["purple"] }, { h: "#ef5da8", n: "وردي", f: ["pink"] },
-  { h: "#ffb3c7", n: "وردي فاتح", f: ["pink"] }, { h: "#f7c59f", n: "بيج", f: ["sand"] },
-  { h: "#e8c88a", n: "رملي", f: ["sand", "gold"] }, { h: "#c98a4b", n: "بنّي فاتح", f: ["brown"] },
-  { h: "#a0522d", n: "بنّي", f: ["brown"] }, { h: "#6b3f1d", n: "بنّي داكن", f: ["brown"] },
-  { h: "#ffffff", n: "أبيض", f: ["white"] }, { h: "#dfe4ea", n: "رمادي فاتح", f: ["gray"] },
-  { h: "#9aa5b1", n: "رمادي", f: ["gray"] }, { h: "#3a3a3a", n: "أسود", f: ["black"] }
+  { h: "#ef5da8", n: "وردي", f: ["pink"] }, { h: "#e8c88a", n: "رملي", f: ["sand", "gold"] },
+  { h: "#c98a4b", n: "بنّي فاتح", f: ["brown"] }, { h: "#a0522d", n: "بنّي", f: ["brown"] },
+  { h: "#9aa5b1", n: "رمادي", f: ["gray"] }, { h: "#ffffff", n: "أبيض", f: ["white"] }
 ];
 const FAM_AR = { red: "الأحمر", orange: "البرتقالي", yellow: "الأصفر", gold: "الذهبي", green: "الأخضر",
   blue: "الأزرق", purple: "البنفسجي", pink: "الوردي", brown: "البنّي", white: "الأبيض", gray: "الرمادي", black: "الأسود", sand: "الرملي" };
 const FAM_HEX = { red: "#ff4d4d", orange: "#ff8c2b", yellow: "#ffd93d", gold: "#e8a300", green: "#17a673",
   blue: "#2f74e0", purple: "#7c4dd1", pink: "#ef5da8", brown: "#a0522d", white: "#ffffff", gray: "#9aa5b1", black: "#3a3a3a", sand: "#e8c88a" };
-const TOOL_AR = { fill: "تلوين 🖌️", pen: "رسم ✏️", text: "كتابة 🔤", circle: "دائرة ⭕", line: "خط ➖", triangle: "مثلث 🔺", cross: "شطب ✖️", erase: "ممحاة 🧽" };
-const TOOL_KIND = { fill: "stroke", pen: "stroke", text: "text", circle: "circle", line: "line", triangle: "triangle", cross: "cross" };
+const TOOL_AR = { fill: "تعبئة 🪣", pen: "رسم ✏️", text: "كتابة 🔤", circle: "دائرة ⭕", line: "خط ➖", triangle: "مثلث 🔺", cross: "شطب ✖️", erase: "ممحاة 🧽" };
+const ACCEPT = { fill: ["fill", "stroke"], pen: ["stroke"], text: ["text"], circle: ["circle"], line: ["line"], triangle: ["triangle"], cross: ["cross"] };
 const TOOL_HINT = {
-  fill: "لوّن على اللوحة بأداة «تلوين» 🖌️", pen: "ارسم على اللوحة بأداة «رسم» ✏️",
+  fill: "المس الجزء المطلوب بأداة «تعبئة» ليمتلئ باللون 🪣", pen: "ارسم على اللوحة بأداة «رسم» ✏️",
   text: "اختر أداة «كتابة» ثم المس المكان واكتب 🔤", circle: "اختر أداة «دائرة» وارسمها حول المطلوب ⭕",
   line: "اختر أداة «خط» وضع خطًا تحت المطلوب ➖", triangle: "اختر أداة «مثلث» وارسمه حول المطلوب 🔺",
   cross: "اختر أداة «شطب» وضع علامة ✖️ على المطلوب"
@@ -659,8 +666,88 @@ const REF = 1000;
 
 const sheetStage = $("sheetStage"), sheetEl = $("sheetImg"), sheetCanvas = $("sheetCanvas");
 const sctx = sheetCanvas.getContext("2d");
+const paintCanvas = $("paintCanvas"), lineCanvas = $("lineCanvas");
+const pctx = paintCanvas.getContext("2d", { willReadFrequently: true });
+const lctx = lineCanvas.getContext("2d");
+
+/* ---- تجهيز اللوحة للتعبئة: فصل الخطوط عن الخلفية ---- */
+const WORK_W = 1200, WORK_H = 655;
+let wall = null, paintImg = null, paint32 = null, fillReady = false;
+paintCanvas.width = lineCanvas.width = WORK_W;
+paintCanvas.height = lineCanvas.height = WORK_H;
+
+function prepareSheet() {
+  fillReady = false;
+  lctx.clearRect(0, 0, WORK_W, WORK_H);
+  pctx.clearRect(0, 0, WORK_W, WORK_H);
+  const off = document.createElement("canvas");
+  off.width = WORK_W; off.height = WORK_H;
+  const octx = off.getContext("2d", { willReadFrequently: true });
+  octx.drawImage(sheetEl, 0, 0, WORK_W, WORK_H);
+  let src;
+  try { src = octx.getImageData(0, 0, WORK_W, WORK_H); }
+  catch (e) { sheetEl.style.visibility = "visible"; toast("التعبئة تحتاج فتح الموقع عبر رابط لا كملف", 4000); return; }
+  const d = src.data;
+  wall = new Uint8Array(WORK_W * WORK_H);
+  const lineImg = lctx.createImageData(WORK_W, WORK_H), ld = lineImg.data;
+  for (let i = 0, px = 0; i < d.length; i += 4, px++) {
+    const lum = (d[i] * 299 + d[i + 1] * 587 + d[i + 2] * 114) / 1000;
+    if (lum < 132) wall[px] = 1;                      // خط لا تتجاوزه التعبئة
+    if (lum < 238) {                                   // ارسم الخطوط فوق اللون مع تدرّج الحواف
+      ld[i] = 38; ld[i + 1] = 38; ld[i + 2] = 42;
+      ld[i + 3] = Math.min(255, Math.round(255 - lum));
+    }
+  }
+  lctx.putImageData(lineImg, 0, 0);
+  paintImg = pctx.createImageData(WORK_W, WORK_H);
+  paint32 = new Uint32Array(paintImg.data.buffer);
+  sheetEl.style.visibility = "hidden";
+  fillReady = true;
+}
+const hex32 = (hex) => {
+  const v = parseInt(hex.slice(1), 16);
+  return (255 << 24 | ((v & 255) << 16) | (((v >> 8) & 255) << 8) | ((v >> 16) & 255)) >>> 0;
+};
+function floodFill(sx, sy, col) {
+  if (!fillReady) return false;
+  sx = Math.max(0, Math.min(WORK_W - 1, sx | 0));
+  sy = Math.max(0, Math.min(WORK_H - 1, sy | 0));
+  const start = sy * WORK_W + sx;
+  if (wall[start]) return false;
+  const target = paint32[start];
+  if (target === col) return false;
+  const stack = [start];
+  const free = (i) => !wall[i] && paint32[i] === target;
+  while (stack.length) {
+    const i = stack.pop();
+    if (!free(i)) continue;
+    const y = (i / WORK_W) | 0, rowStart = y * WORK_W;
+    let l = i, r = i;
+    while (l > rowStart && free(l - 1)) l--;
+    while (r < rowStart + WORK_W - 1 && free(r + 1)) r++;
+    for (let k = l; k <= r; k++) paint32[k] = col;
+    for (const dy of [-WORK_W, WORK_W]) {
+      const ny = y + (dy < 0 ? -1 : 1);
+      if (ny < 0 || ny >= WORK_H) continue;
+      let run = false;
+      for (let k = l + dy; k <= r + dy; k++) {
+        if (free(k)) { if (!run) { stack.push(k); run = true; } }
+        else run = false;
+      }
+    }
+  }
+  pctx.putImageData(paintImg, 0, 0);
+  return true;
+}
+function replayFills() {
+  if (!fillReady) return;
+  paint32.fill(0);
+  pctx.putImageData(paintImg, 0, 0);
+  work.items.forEach((it) => { if (it.kind === "fill") floodFill(it.px, it.py, hex32(it.color)); });
+  pctx.putImageData(paintImg, 0, 0);
+}
 let work = null;          // { sheet, step, items, tries, done }
-let sTool = "fill", sColor = "#17a673", sDrawing = null, sPending = null;
+let sTool = "fill", sColor = "#2f74e0", sDrawing = null, sPending = null;
 
 const sheetImgSrc = (num) => (window.__SHEET_DATA && window.__SHEET_DATA[num]) || ("assets/sheets/" + String(num).padStart(2, "0") + ".jpg");
 const sheetsReady = () => typeof SHEETS !== "undefined" && Array.isArray(SHEETS) && SHEETS.length > 0;
@@ -688,7 +775,13 @@ $("sheetGrid").addEventListener("click", (e) => {
 function openSheet(num) {
   const sh = SHEETS.find((x) => x.n === num); if (!sh) return;
   work = { sheet: sh, step: 0, items: [], tries: sh.steps.map(() => 0), done: sh.steps.map(() => false) };
+  fillReady = false;
+  sheetEl.style.visibility = "visible";
+  pctx.clearRect(0, 0, WORK_W, WORK_H);
+  lctx.clearRect(0, 0, WORK_W, WORK_H);
+  sheetEl.onload = prepareSheet;
   sheetEl.src = sheetImgSrc(num);
+  if (sheetEl.complete && sheetEl.naturalWidth) prepareSheet();
   $("guidedTitle").textContent = sh.title;
   setTool(sh.steps[0].tool);
   go("guided");
@@ -740,10 +833,11 @@ function sizeSheetCanvas() {
   const wrap = $("guidedWrap");
   const zoom = wrap.classList.contains("zoom");
   const land = window.matchMedia("(orientation:landscape)").matches;
-  const side = zoom && land ? Math.min(320, Math.max(260, wrap.clientWidth * 0.3)) : 0;
-  const avail = wrap.clientWidth - side - 12;
+  const side = zoom && land ? Math.min(300, Math.max(240, wrap.clientWidth * 0.26)) : 0;
+  const pal = $("sheetPalette").getBoundingClientRect().width || 0;   // شريط الألوان بجانب اللوحة
+  const avail = wrap.clientWidth - side - pal - 20;
   const maxH = Math.max(180, window.innerHeight * (zoom ? (land ? 0.94 : 0.62) : 0.56));
-  const w = Math.max(240, Math.min(avail, maxH * (1200 / 655), zoom ? 4000 : 900));
+  const w = Math.max(170, Math.min(avail, maxH * (1200 / 655), zoom ? 4000 : 900));
   sheetStage.style.width = Math.round(w) + "px";
   const rect = sheetStage.getBoundingClientRect();
   const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
@@ -798,7 +892,7 @@ function drawItem(g, it, W, H) {
 function drawWork(g, W, H) {
   const own = !g;
   if (own) { [W, H] = stageSize(); g = sctx; g.clearRect(0, 0, W, H); }
-  work.items.forEach((it) => drawItem(g, it, W, H));
+  work.items.forEach((it) => { if (it.kind !== "fill") drawItem(g, it, W, H); });
   if (own && sPending) drawItem(g, sPending, W, H);
 }
 
@@ -821,8 +915,17 @@ sheetCanvas.addEventListener("pointerdown", async (e) => {
     }
     return;
   }
+  if (sTool === "fill") {
+    const px = Math.round(pt[0] * WORK_W), py = Math.round(pt[1] * WORK_H);
+    if (!fillReady) { toast("اللوحة لم تكتمل بعد، أعد المحاولة بعد لحظة"); return; }
+    if (floodFill(px, py, hex32(sColor))) {
+      work.items.push({ kind: "fill", color: sColor, px, py, step: work.step });
+      beep("tap");
+    } else toast("المس مساحة داخل الشكل لتمتلئ باللون 🪣");
+    return;
+  }
   try { sheetCanvas.setPointerCapture(e.pointerId); } catch (err) { /* تجاهل */ }
-  if (sTool === "fill" || sTool === "pen" || sTool === "erase") {
+  if (sTool === "pen" || sTool === "erase") {
     sDrawing = { kind: sTool === "erase" ? "erase" : "stroke", color: sColor, size: TOOL_SIZE[sTool], pts: [pt], step: work.step };
     sPending = sDrawing; drawWork();
   } else {
@@ -881,8 +984,8 @@ function checkStep() {
   const st = work.sheet.steps[work.step];
   const mine = work.items.filter((it) => it.step === work.step && it.kind !== "erase");
   if (!mine.length) return { ok: false, msg: "لم تنفّذ الأمر بعد. اقرأ الأمر ثم نفّذه على اللوحة 👆" };
-  const kind = TOOL_KIND[st.tool];
-  const right = mine.filter((it) => it.kind === kind);
+  const kinds = ACCEPT[st.tool] || ["stroke"];
+  const right = mine.filter((it) => kinds.includes(it.kind));
   if (!right.length) return { ok: false, msg: TOOL_HINT[st.tool] };
   if (st.colors && st.colors.length) {
     const need = st.colors;
@@ -926,7 +1029,9 @@ $("skipStepBtn").onclick = async () => {
 };
 $("undoStepBtn").onclick = () => {
   if (!work.items.length) { toast("لا يوجد ما يمكن التراجع عنه"); return; }
-  work.items.pop(); drawWork(); beep("tap");
+  const last = work.items.pop();
+  if (last.kind === "fill") replayFills(); else drawWork();
+  beep("tap");
 };
 function setZoom(on) {
   const w = $("guidedWrap");
@@ -949,8 +1054,13 @@ async function exportSheet(width, quality) {
   c.width = width; c.height = Math.round(width * ar);
   const g = c.getContext("2d");
   g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height);
-  await new Promise((res) => { if (sheetEl.complete) res(); else sheetEl.onload = res; });
-  g.drawImage(sheetEl, 0, 0, c.width, c.height);
+  if (fillReady) {
+    g.drawImage(paintCanvas, 0, 0, c.width, c.height);
+    g.drawImage(lineCanvas, 0, 0, c.width, c.height);
+  } else {
+    await new Promise((res) => { if (sheetEl.complete) res(); else sheetEl.onload = res; });
+    g.drawImage(sheetEl, 0, 0, c.width, c.height);
+  }
   drawWork(g, c.width, c.height);
   return c.toDataURL("image/jpeg", quality);
 }
