@@ -531,7 +531,7 @@ function renderStudents() {
       '<button class="del" data-del="' + i + '" aria-label="حذف ' + esc(s.name) + '">🗑️</button>' +
       '<span class="avatar" aria-hidden="true">' + s.emoji + "</span>" +
       '<span class="name">' + esc(s.name) + "</span>" +
-      '<span class="sub">📋 ' + Object.keys(s.sheets || {}).length + " من " + (SHEETS_OK ? SHEETS.length : 20) + "</span>" +
+      '<span class="sub">📋 ' + Object.keys(s.sheets || {}).length + " من " + sheetCount() + "</span>" +
     "</div>").join("");
 }
 $("studentsContainer").addEventListener("click", async (e) => {
@@ -556,7 +556,7 @@ function paintStudent() {
   $("studentTitle").textContent = s.emoji + " " + s.name;
   const done = Object.keys(s.sheets || {}).length;
   $("studentSummary").textContent = done
-    ? "اللوحات المكتملة: " + done + " من " + (SHEETS_OK ? SHEETS.length : 20)
+    ? "اللوحات المكتملة: " + done + " من " + sheetCount()
     : "لنبدأ أوّل لوحة! 🚀";
 }
 function openStudent(i) {
@@ -657,14 +657,16 @@ const TOOL_HINT = {
 const TOOL_SIZE = { fill: 30, pen: 9, erase: 34, text: 46, shape: 7 };
 const REF = 1000;
 
-const sheetStage = $("sheetStage"), sheetImg = $("sheetImg"), sheetCanvas = $("sheetCanvas");
+const sheetStage = $("sheetStage"), sheetEl = $("sheetImg"), sheetCanvas = $("sheetCanvas");
 const sctx = sheetCanvas.getContext("2d");
 let work = null;          // { sheet, step, items, tries, done }
 let sTool = "fill", sColor = "#17a673", sDrawing = null, sPending = null;
 
-const SHEETS_OK = typeof SHEETS !== "undefined" && Array.isArray(SHEETS) && SHEETS.length > 0;
+const sheetImgSrc = (num) => (window.__SHEET_DATA && window.__SHEET_DATA[num]) || ("assets/sheets/" + String(num).padStart(2, "0") + ".jpg");
+const sheetsReady = () => typeof SHEETS !== "undefined" && Array.isArray(SHEETS) && SHEETS.length > 0;
+const sheetCount = () => (sheetsReady() ? SHEETS.length : 20);
 function renderSheetList() {
-  if (!SHEETS_OK) {
+  if (!sheetsReady()) {
     $("sheetGrid").innerHTML = '<p class="muted center" style="grid-column:1/-1">تعذّر تحميل ملف اللوحات (sheets.js). حدّث الصفحة والمحاولة مرة أخرى.</p>';
     return;
   }
@@ -672,7 +674,7 @@ function renderSheetList() {
   $("sheetGrid").innerHTML = SHEETS.map((sh) => {
     const done = s && s.sheets && s.sheets[sh.n];
     return '<button class="sheet-card" data-sheet="' + sh.n + '">' +
-      '<img src="assets/sheets/' + String(sh.n).padStart(2, "0") + '.jpg" alt="" loading="lazy">' +
+      '<img src="' + sheetImgSrc(sh.n) + '" alt="" loading="lazy">' +
       '<span class="cap"><span class="num">' + sh.n + "</span>" +
       '<span class="ttl">' + esc(sh.title) + "</span>" +
       (done ? '<span class="tick">✔</span>' : "") + "</span></button>";
@@ -686,7 +688,7 @@ $("sheetGrid").addEventListener("click", (e) => {
 function openSheet(num) {
   const sh = SHEETS.find((x) => x.n === num); if (!sh) return;
   work = { sheet: sh, step: 0, items: [], tries: sh.steps.map(() => 0), done: sh.steps.map(() => false) };
-  sheetImg.src = "assets/sheets/" + String(num).padStart(2, "0") + ".jpg";
+  sheetEl.src = sheetImgSrc(num);
   $("guidedTitle").textContent = sh.title;
   setTool(sh.steps[0].tool);
   go("guided");
@@ -947,8 +949,8 @@ async function exportSheet(width, quality) {
   c.width = width; c.height = Math.round(width * ar);
   const g = c.getContext("2d");
   g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height);
-  await new Promise((res) => { if (sheetImg.complete) res(); else sheetImg.onload = res; });
-  g.drawImage(sheetImg, 0, 0, c.width, c.height);
+  await new Promise((res) => { if (sheetEl.complete) res(); else sheetEl.onload = res; });
+  g.drawImage(sheetEl, 0, 0, c.width, c.height);
   drawWork(g, c.width, c.height);
   return c.toDataURL("image/jpeg", quality);
 }
