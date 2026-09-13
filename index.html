@@ -1196,13 +1196,35 @@ $("saveArtBtn").onclick = async () => {
 $("downloadArtBtn").onclick = async () => {
   try {
     const data = await exportImage(1000, "image/png");
-    const a = document.createElement("a");
-    a.href = data;
-    a.download = "barq-" + (art.tpl || "art") + ".png";
-    document.body.appendChild(a); a.click(); a.remove();
-    beep("ok"); toast("تم تنزيل الصورة ⬇️");
+    beep("ok");
+    await saveFile("barq-" + (art.tpl || "art") + ".png", data);
   } catch (err) { toast("تعذّر تنزيل الصورة"); }
 };
+
+/* ================= تنزيل الملفات ================= */
+let dlNs;   // قدرة التنزيل في بيئة المعاينة (غير متوفّرة في الموقع المستضاف)
+function dataUrlToBlob(u) {
+  const [head, b64] = u.split(",");
+  const mime = (head.match(/data:([^;]+)/) || [])[1] || "application/octet-stream";
+  const bin = atob(b64), arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], { type: mime });
+}
+async function saveFile(filename, dataUrl) {
+  if (dlNs === undefined) {
+    try { dlNs = (window.claude && typeof window.claude.use === "function") ? await window.claude.use("downloads") : null; }
+    catch (e) { dlNs = null; }
+  }
+  if (dlNs) {
+    try { await dlNs.save({ filename, data: dataUrlToBlob(dataUrl) }); toast("تم حفظ الصورة ⬇️"); }
+    catch (e) { if (e && e.code !== "declined") toast("تعذّر حفظ الصورة"); }
+    return;
+  }
+  const a = document.createElement("a");
+  a.href = dataUrl; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  toast("تم التنزيل ⬇️");
+}
 
 /* ================= المعرض ================= */
 function renderGallery() {
@@ -1224,8 +1246,7 @@ $("galleryGrid").addEventListener("click", async (e) => {
   const dl = e.target.closest("[data-dl]");
   if (dl) {
     const d = s.drawings.find((x) => x.id === dl.dataset.dl); if (!d) return;
-    const a = document.createElement("a"); a.href = d.img; a.download = "barq-" + d.tpl + ".jpg";
-    document.body.appendChild(a); a.click(); a.remove();
+    await saveFile("barq-" + d.tpl + ".jpg", d.img);
     return;
   }
   const del = e.target.closest("[data-delart]");
@@ -1593,11 +1614,7 @@ $("sheetSaveBtn").onclick = async () => {
 };
 $("sheetDownloadBtn").onclick = async () => {
   try {
-    const a = document.createElement("a");
-    a.href = await exportSheet(1400, 0.92);
-    a.download = "barq-sheet-" + work.sheet.n + ".jpg";
-    document.body.appendChild(a); a.click(); a.remove();
-    toast("تم التنزيل ⬇️");
+    await saveFile("barq-sheet-" + work.sheet.n + ".jpg", await exportSheet(1400, 0.92));
   } catch (e) { toast("تعذّر التنزيل"); }
 };
 $("sheetNextBtn").onclick = () => { renderSheetList(); go("sheets"); };
