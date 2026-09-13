@@ -151,8 +151,8 @@ img{max-width:100%; display:block}
 
 /* ===== بطاقة الأمر ===== */
 .cmd{
-  background:var(--card); border:3px solid var(--ink); border-radius:var(--radius); padding:16px clamp(14px,4vw,26px);
-  box-shadow:var(--shadow); text-align:center; margin-top:14px; position:relative;
+  background:var(--card); border:3px solid var(--ink); border-radius:var(--radius); padding:14px clamp(14px,4vw,26px);
+  box-shadow:var(--shadow); text-align:center; margin-bottom:12px; position:relative;
 }
 .cmd .head{font-weight:800; color:var(--muted); font-size:.92rem}
 .cmd .text{font-family:var(--read); font-weight:700; font-size:clamp(21px,5vw,30px); line-height:2.1; margin:6px 0 10px}
@@ -179,7 +179,11 @@ img{max-width:100%; display:block}
 .modal{position:fixed; inset:0; z-index:70; display:grid; place-items:center; background:rgba(74,64,57,.45); padding:18px}
 .modal[hidden]{display:none}
 .modal .box{background:var(--card); border:3px solid var(--ink); border-radius:var(--radius); padding:24px; max-width:400px; width:100%; text-align:center; box-shadow:var(--shadow-soft)}
-footer{text-align:center; font-size:.8rem; color:var(--muted); padding:20px 14px calc(20px + env(safe-area-inset-bottom))}
+footer{text-align:center; padding:22px 14px calc(24px + env(safe-area-inset-bottom))}
+footer .credit{display:inline-flex; align-items:center; gap:9px; background:var(--card); border:2px solid var(--line);
+  border-radius:999px; padding:8px 18px; font-size:.86rem; color:var(--muted); box-shadow:var(--shadow)}
+footer .credit strong{color:var(--ink); font-weight:800}
+footer .fl{width:20px; height:20px; flex:none; display:block}
 @media (prefers-reduced-motion:reduce){ *{animation:none !important; transition:none !important} }
 </style>
 </head>
@@ -224,6 +228,11 @@ footer{text-align:center; font-size:.8rem; color:var(--muted); padding:20px 14px
       <h2 id="playTitle" class="center" style="margin:0"></h2>
       <div class="progress" id="progress"></div>
     </div>
+    <div class="cmd" id="cmdCard">
+      <div class="head" id="cmdHead"></div>
+      <p class="text" id="cmdText"></p>
+      <div id="cmdNeed"></div>
+    </div>
     <div class="boardrow" id="boardRow">
       <div class="board" id="board">
         <img id="sheetImg" alt="لوحة التلوين">
@@ -233,17 +242,13 @@ footer{text-align:center; font-size:.8rem; color:var(--muted); padding:20px 14px
       </div>
     </div>
     <div class="rail" id="rail" role="group" aria-label="الألوان والأدوات"></div>
-    <div class="cmd" id="cmdCard">
-      <div class="head" id="cmdHead"></div>
-      <p class="text" id="cmdText"></p>
-      <div id="cmdNeed"></div>
-    </div>
     <div class="actions">
       <button class="btn btn-green" id="checkBtn">تحقّق</button>
       <button class="btn btn-plain btn-sm" id="skipBtn">تجاوز</button>
       <button class="btn btn-plain btn-sm" id="otherBtn">لوحة أخرى</button>
     </div>
-    <p class="hint center rotate" style="margin-top:10px">أدر الجهاز أفقيًا لتصبح اللوحة أكبر.</p>
+    <p class="hint center" style="margin-top:10px">المس الجزء ليمتلئ باللون، أو مرِّر إصبعك لتلوين العنصر كاملًا.</p>
+    <p class="hint center rotate" style="margin:0">أدر الجهاز أفقيًا لتصبح اللوحة أكبر.</p>
   </section>
 
   <!-- ======== النهاية ======== -->
@@ -271,7 +276,11 @@ footer{text-align:center; font-size:.8rem; color:var(--muted); padding:20px 14px
   </div>
 </div>
 
-<footer>© جميع الحقوق محفوظة | إعداد وتصميم: أ. عائشة البروانية</footer>
+<footer>
+  <span class="credit"><span class="fl" id="footFlower"></span>
+    <span>جميع الحقوق محفوظة &copy; — إعداد وتصميم: <strong>أ. عائشة البروانية</strong></span>
+  </span>
+</footer>
 
 <script src="sheets.js"></script>
 <script>
@@ -435,7 +444,7 @@ const lctx = lineCanvas.getContext("2d");
 const W = 1200, H = 655;
 paintCanvas.width = lineCanvas.width = W;
 paintCanvas.height = lineCanvas.height = H;
-let wall = null, paintImg = null, paint32 = null, ready = false;
+let wall = null, ink = null, seen = null, paintImg = null, paint32 = null, ready = false;
 
 function prepareSheet() {
   ready = false;
@@ -448,11 +457,14 @@ function prepareSheet() {
   try { src = octx.getImageData(0, 0, W, H); }
   catch (e) { sheetEl.style.visibility = "visible"; toast("افتح الموقع عبر رابط لا كملف ليعمل التلوين", 4200); return; }
   const d = src.data;
-  wall = new Uint8Array(W * H);
+  wall = new Uint8Array(W * H);     // ما يوقف التعبئة (يشمل حواف الخط الرمادية)
+  ink = new Uint8Array(W * H);      // الحبر الداكن الذي يبقى بلا لون
+  seen = new Uint8Array(W * H);
   const lineImg = lctx.createImageData(W, H), ld = lineImg.data;
   for (let i = 0, p = 0; i < d.length; i += 4, p++) {
     const lum = (d[i] * 299 + d[i + 1] * 587 + d[i + 2] * 114) / 1000;
-    if (lum < 132) wall[p] = 1;
+    if (lum < 150) wall[p] = 1;
+    if (lum < 118) ink[p] = 1;
     if (lum < 238) { ld[i] = 74; ld[i + 1] = 64; ld[i + 2] = 57; ld[i + 3] = Math.min(255, Math.round(255 - lum)); }
   }
   lctx.putImageData(lineImg, 0, 0);
@@ -465,7 +477,7 @@ const hex32 = (hex) => {
   const v = parseInt(hex.slice(1), 16);
   return ((255 << 24) | ((v & 255) << 16) | (((v >> 8) & 255) << 8) | ((v >> 16) & 255)) >>> 0;
 };
-function floodFill(sx, sy, col) {
+function floodFill(sx, sy, col, defer) {
   if (!ready) return false;
   sx = Math.max(0, Math.min(W - 1, sx | 0));
   sy = Math.max(0, Math.min(H - 1, sy | 0));
@@ -473,8 +485,9 @@ function floodFill(sx, sy, col) {
   if (wall[start]) return false;
   const target = paint32[start];
   if (target === col) return false;
-  const free = (i) => !wall[i] && paint32[i] === target;
+  const free = (i) => !wall[i] && !seen[i] && paint32[i] === target;
   const stack = [start];
+  let x0 = sx, x1 = sx, y0 = sy, y1 = sy, area = 0;
   while (stack.length) {
     const i = stack.pop();
     if (!free(i)) continue;
@@ -482,7 +495,10 @@ function floodFill(sx, sy, col) {
     let l = i, r = i;
     while (l > rowStart && free(l - 1)) l--;
     while (r < rowStart + W - 1 && free(r + 1)) r++;
-    for (let k = l; k <= r; k++) paint32[k] = col;
+    for (let k = l; k <= r; k++) { seen[k] = 1; area++; }
+    if (y < y0) y0 = y; if (y > y1) y1 = y;
+    if (l - rowStart < x0) x0 = l - rowStart;
+    if (r - rowStart > x1) x1 = r - rowStart;
     for (const dy of [-W, W]) {
       const ny = y + (dy < 0 ? -1 : 1);
       if (ny < 0 || ny >= H) continue;
@@ -492,14 +508,39 @@ function floodFill(sx, sy, col) {
       }
     }
   }
-  pctx.putImageData(paintImg, 0, 0);
+  if (!area) return false;
+  // مدّ اللون بكسلين تحت حافة الخط الرمادية حتى لا تبقى هالة بيضاء
+  const bx0 = Math.max(1, x0 - 2), bx1 = Math.min(W - 2, x1 + 2);
+  const by0 = Math.max(1, y0 - 2), by1 = Math.min(H - 2, y1 + 2);
+  for (let pass = 0; pass < 2; pass++) {
+    const add = [];
+    for (let y = by0; y <= by1; y++) {
+      for (let x = bx0; x <= bx1; x++) {
+        const i = y * W + x;
+        if (seen[i] || ink[i]) continue;
+        if (seen[i - 1] || seen[i + 1] || seen[i - W] || seen[i + W]) add.push(i);
+      }
+    }
+    for (const i of add) seen[i] = 1;
+  }
+  for (let y = by0; y <= by1; y++) {
+    for (let x = bx0; x <= bx1; x++) {
+      const i = y * W + x;
+      if (seen[i]) { if (!ink[i]) paint32[i] = col; seen[i] = 0; }
+    }
+  }
+  if (!defer) pctx.putImageData(paintImg, 0, 0);
   return true;
 }
+function flushPaint() { if (ready) pctx.putImageData(paintImg, 0, 0); }
 function replay() {
   if (!ready) return;
   paint32.fill(0);
-  work.fills.forEach((f) => floodFill(f.x, f.y, f.erase ? 0 : hex32(f.color)));
-  pctx.putImageData(paintImg, 0, 0);
+  work.fills.forEach((f) => {
+    const col = f.erase ? 0 : hex32(f.color);
+    f.pts.forEach(([x, y]) => floodFill(x, y, col, true));
+  });
+  flushPaint();
 }
 
 /* ================= اللعب ================= */
@@ -584,21 +625,57 @@ function paintStep() {
   $("checkBtn").textContent = work.done[work.step] ? "الأمر التالي" : "تحقّق";
 }
 
-/* ---- لمسة واحدة تملأ المنطقة ---- */
+/* ---- لمسة تملأ الجزء، وتمرير الإصبع يلوّن العنصر كاملًا ---- */
+let gesture = null, lastPt = null;
+const boardPoint = (e) => {
+  const r = touchCanvas.getBoundingClientRect();
+  return [Math.round(((e.clientX - r.left) / r.width) * W), Math.round(((e.clientY - r.top) / r.height) * H)];
+};
+function paintAt(x, y) {
+  if (x < 0 || y < 0 || x >= W || y >= H) return false;
+  const col = gesture.erase ? 0 : hex32(gesture.color);
+  if (!floodFill(x, y, col, true)) return false;
+  gesture.pts.push([x, y]);
+  return true;
+}
 touchCanvas.addEventListener("pointerdown", (e) => {
   if (!work) return;
   e.preventDefault();
   if (!ready) { toast("لحظة… اللوحة تُجهَّز"); return; }
-  const r = touchCanvas.getBoundingClientRect();
-  const x = Math.round(((e.clientX - r.left) / r.width) * W);
-  const y = Math.round(((e.clientY - r.top) / r.height) * H);
-  if (floodFill(x, y, erasing ? 0 : hex32(color))) {
-    work.fills.push({ x, y, color, erase: erasing, step: work.step });
-    beep("tap");
-  } else {
-    toast(erasing ? "المس جزءًا ملوّنًا لمسحه" : "المس مساحة داخل الشكل ليمتلئ باللون");
-  }
+  try { touchCanvas.setPointerCapture(e.pointerId); } catch (err) { /* تجاهل */ }
+  gesture = { color, erase: erasing, pts: [], step: work.step };
+  const [x, y] = boardPoint(e);
+  lastPt = [x, y];
+  if (paintAt(x, y)) { flushPaint(); beep("tap"); }
+  else toast(erasing ? "مرِّر على جزء ملوّن لمسحه" : "المس مساحة داخل الشكل ليمتلئ باللون");
 });
+touchCanvas.addEventListener("pointermove", (e) => {
+  if (!gesture) return;
+  e.preventDefault();
+  const [x, y] = boardPoint(e);
+  if (lastPt && Math.abs(x - lastPt[0]) < 5 && Math.abs(y - lastPt[1]) < 5) return;
+  // لوّن على طول المسار حتى لا تفوت الأجزاء الصغيرة
+  let painted = false;
+  if (lastPt) {
+    const steps = Math.min(40, Math.max(1, Math.round(Math.hypot(x - lastPt[0], y - lastPt[1]) / 5)));
+    for (let k = 1; k <= steps; k++) {
+      const px = Math.round(lastPt[0] + ((x - lastPt[0]) * k) / steps);
+      const py = Math.round(lastPt[1] + ((y - lastPt[1]) * k) / steps);
+      if (paintAt(px, py)) painted = true;
+    }
+  }
+  lastPt = [x, y];
+  if (painted) flushPaint();
+});
+function endGesture() {
+  if (!gesture) return;
+  if (gesture.pts.length) work.fills.push(gesture);
+  gesture = null; lastPt = null;
+  flushPaint();
+}
+touchCanvas.addEventListener("pointerup", endGesture);
+touchCanvas.addEventListener("pointercancel", endGesture);
+touchCanvas.addEventListener("pointerleave", endGesture);
 
 /* ---- التحقّق ---- */
 function checkStep() {
@@ -696,6 +773,7 @@ $("heroMark").innerHTML = markSVG("#F4B8CE");
 $("finishMark").innerHTML = markSVG("#FBE3A2");
 $("topMark").innerHTML = '<span style="display:inline-block;width:26px;vertical-align:-6px">' + flowerSVG("#F4B8CE") + "</span>";
 $("soundIcon").innerHTML = ICONS.soundOn;
+$("footFlower").innerHTML = flowerSVG("#F4B8CE");
 document.querySelectorAll("[data-flower]").forEach((el, i) => {
   el.innerHTML = flowerSVG(["#F4B8CE", "#CBE0A9", "#BCD8EF"][i % 3]);
 });
