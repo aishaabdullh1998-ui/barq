@@ -160,6 +160,11 @@ img{max-width:100%; display:block}
   background:var(--cream); border:2px dashed var(--line); border-radius:999px; padding:5px 14px}
 .cmd .need i{width:20px; height:20px; border-radius:50%; border:2px solid var(--ink); display:inline-block}
 .cmd.ok{border-color:var(--green-deep); background:#F6FBEF}
+.praise{display:inline-flex; align-items:center; gap:9px; font-family:var(--read); font-weight:700;
+  font-size:clamp(16px,3.8vw,21px); color:#3F6B3A; background:#EAF5DC; border:2px solid var(--green-deep);
+  border-radius:999px; padding:6px 18px; animation:praisePop .35s ease both}
+.praise .fl{width:24px; height:24px; flex:none; display:block}
+@keyframes praisePop{0%{opacity:0; transform:scale(.8)}60%{transform:scale(1.06)}100%{opacity:1; transform:scale(1)}}
 .cmd.no{border-color:var(--pink-deep); background:#FEF6F8}
 .cmd .qtag{display:inline-block; background:var(--blue); border:2px solid var(--ink); border-radius:999px;
   padding:2px 12px; font-size:.8rem; font-weight:800; margin-bottom:4px}
@@ -205,13 +210,12 @@ footer .fl{width:20px; height:20px; flex:none; display:block}
       <p class="tag">أَقْرَأُ… وَأُلَوِّنُ… وَأَفْهَمُ</p>
     </div>
     <div class="steps">
-      <div class="step"><div class="num" data-flower="pink"></div><b>اقرأ الأمر</b><span>أمر واحد يظهر تحت اللوحة</span></div>
+      <div class="step"><div class="num" data-flower="pink"></div><b>اقرأ الأمر</b><span>أمر واحد يظهر فوق اللوحة</span></div>
       <div class="step"><div class="num" data-flower="green"></div><b>لوّن المطلوب</b><span>المس الجزء ليمتلئ باللون</span></div>
       <div class="step"><div class="num" data-flower="blue"></div><b>تحقّق وانتقل</b><span>إذا صحّ اللون ينتقل تلقائيًا</span></div>
     </div>
     <div class="center">
       <button class="btn btn-lg btn-pink" id="startBtn">هيّا نبدأ</button>
-      <p class="muted" style="margin-top:16px">عشرون لوحة عُمانية، في كلٍّ منها ثمانية أوامر.<br>بلا تسجيل ولا حفظ بيانات، يكفي أن تفتح وتلعب.</p>
     </div>
   </section>
 
@@ -384,6 +388,18 @@ const COLORS = [
   { h: "#C6CFD6", n: "رمادي", f: ["gray"] },
   { h: "#FFF6E9", n: "أبيض", f: ["white"] }
 ];
+const PRAISE = [
+  "أَحْسَنْتَ! لَوْنٌ صَحِيحٌ", "رَائِع! عَيْنُكَ دَقِيقَةٌ", "مُمْتَاز! قِرَاءَةٌ وَتَنْفِيذٌ",
+  "مَا شَاءَ اللهُ! عَمَلٌ مُتْقَنٌ", "بَارَكَ اللهُ فِيكَ!", "تَلْوِينٌ جَمِيلٌ!",
+  "أَنْتَ قَارِئٌ مَاهِرٌ", "أَصَبْتَ! وَاصِلْ", "خُطْوَةٌ مُوَفَّقَةٌ", "عَمَلٌ رَائِعٌ! هَيَّا نُكْمِلُ"
+];
+let lastPraise = -1;
+function praise() {
+  let i;
+  do { i = Math.floor(Math.random() * PRAISE.length); } while (PRAISE.length > 1 && i === lastPraise);
+  lastPraise = i;
+  return PRAISE[i];
+}
 const FAM_AR = { pink: "الوردي", red: "الأحمر", orange: "البرتقالي", yellow: "الأصفر", gold: "الذهبي",
   sand: "الرملي", green: "الأخضر", blue: "الأزرق", purple: "البنفسجي", brown: "البنّي", gray: "الرمادي", white: "الأبيض" };
 const famHex = (f) => (COLORS.find((c) => c.f.includes(f)) || { h: "#EADFCF" }).h;
@@ -703,7 +719,7 @@ $("checkBtn").onclick = () => {
   }
   work.done[work.step] = true;
   $("cmdCard").className = "cmd ok";
-  $("cmdNeed").innerHTML = '<span class="need" style="border-color:var(--green-deep)">أحسنت! تم تنفيذ الأمر</span>';
+  $("cmdNeed").innerHTML = '<span class="praise"><span class="fl">' + flowerSVG("#A9CE96") + "</span>" + esc(praise()) + "</span>";
   beep("ok");
   const at = work.step;
   setTimeout(() => { if (work && work.step === at && work.done[at]) nextStep(); }, 1200);
